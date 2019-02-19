@@ -1,0 +1,37 @@
+<body class="col-xs-10 col-sm-10 col-md-6 col-lg-4 login-panel Elevation-2dp">
+  <form [formGroup]="loginForm" class="form-signin" (ngSubmit)="onLogin(loginForm.value)">
+    <div style="text-align: center">
+      <img src="../../assets/images/logo_eadn.png" width="280px" height="90px">
+      <!-- <p class="h5 mb-3 font-weight-normal" style="color: #00425C">Welcome EADN</p> -->
+    </div>
+    <hr />
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 10px">
+      <div class="ui-g">
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+          <label for="username" class="sr-only">User Name</label>
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+          <input type="text" autofocus id="username" pInputText formControlName="username"
+            class="form-control col-md-12 col-lg-12" placeholder="Nom d'utilisateur..">
+          <div *ngIf="!loginForm.controls['username'].valid&&loginForm.controls['username'].dirty">
+            <p-message severity="error" text="Minimum 2 caractère."></p-message>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+          <input type="password" id="_password" formControlName="password" class="form-control col-md-12 col-lg-12"
+            placeholder="Mot de passe.." ngModel required pInputText>
+          <div *ngIf="!loginForm.controls['password'].valid&&loginForm.controls['password'].dirty">
+            <p-message severity="error" text="Minimum 4 caractère."></p-message>
+          </div>
+        </div>
+      </div>
+      <br />
+      <button pButton label="Sign in" type="submit" [disabled]="!loginForm.valid"
+        class="col-md-12 col-lg-12 ui-button-raised"></button>
+    </div>
+  </form>
+  <div class="panel-footer">
+    <hr />
+    <span style="font-size: 11px;margin-right: 10px;cursor: pointer;"> Mot de passe oublier.</span>
+  </div>
+</body>

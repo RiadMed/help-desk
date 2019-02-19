@@ -1,0 +1,17 @@
+<app-header></app-header>
+<p-toast [style]="{marginTop: '20px'}" sticky=true></p-toast>
+<ngx-spinner bdColor="rgba(255,255,255,0.8)" size="default" color="#d7007f" type="line-scale-party"></ngx-spinner>
+<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1" [speed]="500" [showSpinner]="false"
+    [direction]="'leftToRightIncreased'" [color]="'#d7007f'" [trickleSpeed]="500" [thick]="false" [ease]="'linear'">
+</ng-progress>
+<div style="margin-bottom: 40px">
+    <router-outlet></router-outlet>
+</div>
+
+<p-confirmDialog></p-confirmDialog>
+<footer class="footer mt-auto py-3" style="border-top: 1px solid #d0d0d0;">
+    <div class="container">
+        <span class="text-muted font-12">EADN Help-Desk Apps.</span>
+        <span class="text-muted font-12" style="float: right">EADN-2019 &copy; Copyright </span>
+    </div>
+</footer>

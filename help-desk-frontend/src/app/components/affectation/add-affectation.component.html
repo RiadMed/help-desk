@@ -1,0 +1,119 @@
+<form #addForm="ngForm">
+    <i class="pi pi-chevron-left ui-button-secondary back-btn-style" (click)="cancel()"></i>
+    <span class="card-title-style">
+        Suivie info :</span>
+    <hr />
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 10px">
+        <div class="ui-g">
+
+            <div class="ui-g-4 ui-md-3 ui-lg-3">
+                <label for="_partener">Personnel </label>
+                <span style="color:red"> *</span> :
+            </div>
+            <div class="ui-g-8 ui-md-8 ui-lg-8">
+                <p-dropdown id="_partener" required [options]="partenerItems" [(ngModel)]="partener" name="partener"
+                    placeholder="Select a Personnel" [style]="{'width':'93%','float':'left'}" optionLabel="label"
+                    [showClear]="true" [autoWidth]="false" filter="true" filterBy="label,partener.lastName">
+                    <!-- <ng-template let-part pTemplate="item">
+                        {{part.label}} {{part.lastName}}
+                    </ng-template> -->
+                </p-dropdown>
+            </div>
+
+            <div class="ui-g-4 ui-md-3 ui-lg-3"></div>
+            <div class="ui-g-8 ui-md-8 ui-lg-8">
+                <div class="ui-g-2">
+                    <p-checkbox [(ngModel)]="hasHardware" name="hasHardware" label="Materiel" binary="true">
+                    </p-checkbox>
+                </div>
+                <div class="ui-g-2">
+                    <p-checkbox [(ngModel)]="hasSoftware" name="hasSoftware" label="Logiciel" binary="true">
+                    </p-checkbox>
+                </div>
+            </div>
+
+            <div class="ui-g-4 ui-md-3 ui-lg-3" *ngIf="hasHardware">
+                <label for="_hardware">Materiel </label>
+                <span style="color:red"> *</span> :
+            </div>
+            <div class="ui-g-8 ui-md-8 ui-lg-8" *ngIf="hasHardware">
+                <p-dropdown id="_hardware" [options]="hardwareItems" [(ngModel)]="hardware" name="hardware"
+                    required="hasHardware" placeholder="Select a Materiel" [style]="{'width':'93%','float':'left'}"
+                    optionLabel="label" [showClear]="true" [autoWidth]="false" filter="true">
+                </p-dropdown>
+            </div>
+            <div class="ui-g-4 ui-md-3 ui-lg-3" *ngIf="hasHardware">
+                <label for="_serialNumber">Numéro de serie</label>
+                <span style="color:red"> *</span> :
+            </div>
+            <div class="ui-g-8 ui-md-8 ui-lg-8" *ngIf="hasHardware">
+                <input type="text" id="_serialNumber" placeholder="Numéro de serie." pInputText
+                    [(ngModel)]="model.serialNumber" name="serialNumber" class="form-control col-md-11 col-lg-11"
+                    required="hasHardware" minlength="6" #serial="ngModel">
+                <div *ngIf="serial.errors?.minlength">
+                    <p-message severity="error" text="Minimum 6 caractère."></p-message>
+                </div>
+
+            </div>
+
+            <div class="ui-g-4 ui-md-3 ui-lg-3" *ngIf="hasSoftware">
+                <label for="_software">Logiciel </label>
+                <span style="color:red"> *</span> :
+            </div>
+            <div class="ui-g-8 ui-md-8 ui-lg-8" *ngIf="hasSoftware">
+                <p-dropdown id="_software" [options]="softwareItems" [(ngModel)]="software" name="software"
+                    required="hasSoftware" placeholder="Select a Logiciel" [style]="{'width':'93%','float':'left'}"
+                    optionLabel="label" [showClear]="true" [autoWidth]="false" filter="true">
+                </p-dropdown>
+            </div>
+
+            <div class="ui-g-4 ui-md-3 ui-lg-3" *ngIf="hasSoftware">
+                <label for="_active">Activé :</label>
+            </div>
+            <div class="ui-g-8 ui-md-8 ui-lg-8" *ngIf="hasSoftware">
+                <p-checkbox id="_active" [(ngModel)]="model.active" name="active" binary="true"
+                    pTooltip="Logiciel est activé ?." tooltipPosition="left"></p-checkbox>
+            </div>
+
+
+            <div class="ui-g-4 ui-md-3 ui-lg-3" *ngIf="model.active">
+                <label for="_serialNumber">Clé d'activation</label>
+                <span style="color:red"> *</span> :
+            </div>
+            <div class="ui-g-8 ui-md-8 ui-lg-8" *ngIf="model.active">
+                <input type="text" id="_serialNumber" placeholder="Clé d'activation." pInputText [(ngModel)]="model.key"
+                    name="key" required="model.active" class="form-control col-md-11 col-lg-11">
+            </div>
+
+            <div class="ui-g-4 ui-md-3 ui-lg-3">
+                <label for="_date">Date</label>
+                <span style="color:red"> *</span> :
+            </div>
+            <div class="ui-g-8 ui-md-8 ui-lg-8">
+                <p-calendar id="_date" [(ngModel)]="model.date" required [showIcon]="true" name="date"
+                    placeholder="Date." dateFormat="dd/mm/yy" pTooltip="Date d'affectation." tooltipPosition="left">
+                </p-calendar>
+            </div>
+
+
+            <div class="ui-g-4 ui-md-3 ui-lg-3">
+                <label for="_active" for="_label">Description :</label>
+            </div>
+            <div class="ui-g-8 ui-md-8 ui-lg-8">
+                <textarea rows="4" id="_label" [(ngModel)]="model.label" name="label" pInputTextarea
+                    placeholder="Description.." class="form-control col-md-11 col-lg-11"></textarea>
+            </div>
+
+
+        </div>
+    </div>
+    <hr />
+    <p-footer>
+        <button pButton (click)="saveAffectData()" icon="pi pi-check" label="Valider"
+            class="ui-button-raised"></button>
+        <p-button label="Fermer" icon="pi pi-times" (click)="cancel()" class="ui-button-raised"></p-button>
+        <i class="pi pi-ellipsis-v" style="color: #999;margin-right: 5px"></i>
+        <p-button label="Nouveau" icon="pi pi-plus" (click)="addEntity()" *ngIf="editModel" class="ui-button-raised">
+        </p-button>
+    </p-footer>
+</form>

@@ -1,0 +1,75 @@
+<div class="p-sm-12 p-md-12 p-lg-12 p-xl-12 Elevation-2dp">
+
+  <p-card *ngIf="!showDetail">
+    <span style="font-size: 1rem;color: #555;margin-left: 5px;font-weight: 500;padding: 0">Liste des menus :</span>
+    <hr />
+    <p-table #dt [columns]="columns" [value]="listAll" [paginator]="true" [rows]="10" [totalRecords]="totalRecords"
+      [rowsPerPageOptions]="[10,20,50,100]">
+
+      <ng-template pTemplate="caption">
+        <div class="ui-helper-clearfix">
+          <button pButton type="button" label="Nouveau" icon="pi pi-plus" (click)="addEntity()" class="ui-button-raised"
+            style="float: left;margin-top: -3px;">
+          </button>
+        </div>
+        <div class="ui-inputgroup filter-ui-table">
+          <input type="text" pInputText placeholder="Search..." size="50"
+            (input)="dt.filterGlobal($event.target.value, 'contains')" class="form-control input-search">
+          <span class="ui-inputgroup-addon input-search-logo"><i class="pi pi-search"></i></span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col *ngFor="let col of columns" [style.width]="col.width">
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th style="width:4em !important;text-align: center;">N°</th>
+          <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.width">
+            {{col.header}}
+            <p-sortIcon [field]="col.field"></p-sortIcon>
+          </th>
+          <th style="width:7em"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+          <td style="text-align: center;background: #f4f4f4">
+            {{rowData.id}}
+          </td>
+          <td *ngFor="let col of columns">
+            {{rowData[col.field]}}
+          </td>
+          <td style="text-align: center;">
+            <button pButton icon="pi pi-search" class="column-table-btn-style" style="border-radius: 0 !important"
+              (click)="showModelDetails(rowData)"></button>
+            <button pButton icon="pi pi-trash" class="column-table-btn-style" style="border-radius: 0 !important"
+              (click)="confirm(rowData)"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="columns.length" [attr.colspan]="columns.length + 2">
+            <span style="color: #777;font-size: 10px"> aucune données enregitrer..</span>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary" let-rowData>
+        <div style="text-align:left">
+          <button type="button" pButton icon="fa fa-file-excel" (click)="exportAsXLSX()" label="Excel"
+            class="ui-button-secondary excel-btn-style"></button>
+          <button type="button" pButton icon="fa fa-file-pdf" label="Pdf" disabled="true"
+            class="ui-button-secondary pdf-btn-style"></button>
+          <i class="pi pi-ellipsis-v" style="color: #999"></i>
+        </div>
+      </ng-template>
+    </p-table>
+  </p-card>
+
+  <p-card *ngIf="showDetail">
+    <add-menu (showEvent)="showDetail=$event" [datasource]="listAll" (pushDataEvent)="listAll=$event"
+      [appModel]="selected" [addModel]="addMode" [editModel]="editMode"></add-menu>
+  </p-card>
+</div>

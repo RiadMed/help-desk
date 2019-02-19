@@ -1,0 +1,56 @@
+<form #addForm="ngForm">
+    <i class="pi pi-chevron-left ui-button-secondary back-btn-style" (click)="cancel()"></i>
+    <span class="card-title-style">
+        Personnel info :</span>
+    <hr />
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 10px">
+        <div class="ui-g">
+            <div class="ui-g-4 ui-md-3 ui-lg-3">
+                <label for="_firstName">Nom</label>
+                <span style="color:red"> *</span> :
+            </div>
+            <div class="ui-g-8 ui-md-8 ui-lg-8">
+                <input type="text" id="_firstName" [pKeyFilter]="blockSpecial" required pInputText
+                    [(ngModel)]="model.label" name="label" autofocus class="form-control col-md-11 col-lg-11"
+                    placeholder="Nom." minlength="2" #name="ngModel">
+                <div *ngIf="name.errors?.minlength">
+                    <p-message severity="error" text="Minimum 2 caractère."></p-message>
+                </div>
+            </div>
+            <div class="ui-g-4 ui-md-3 ui-lg-3">
+                <label for="_lastName">Prénom</label>
+                <span style="color:red"> *</span> :
+            </div>
+            <div class="ui-g-8 ui-md-8 ui-lg-8">
+                <input type="text" id="_lastName" [pKeyFilter]="blockSpecial" required pInputText
+                    [(ngModel)]="model.lastName" name="lastName" class="form-control col-md-11 col-lg-11"
+                    placeholder="Prénom." minlength="2" #last="ngModel">
+                <div *ngIf="last.errors?.minlength">
+                    <p-message severity="error" text="Minimum 2 caractère."></p-message>
+                </div>
+            </div>
+
+            <div class="ui-g-4 ui-md-3 ui-lg-3">
+                <label for="_date_in">Personnel :</label>
+                <span style="color:red"> *</span> :
+            </div>
+            <div class="ui-g-8 ui-md-8 ui-lg-8">
+                <p-dropdown [options]="professionItems" [(ngModel)]="profession" name="profession"
+                    placeholder="Select a Profession" [style]="{'width':'92%','float':'left'}" optionLabel="label"
+                    [showClear]="true" [autoWidth]="false">
+                </p-dropdown>
+            </div>
+
+
+        </div>
+    </div>
+    <hr />
+    <p-footer>
+        <button pButton (click)="saveData()" icon="pi pi-check" label="Valider" [disabled]="!addForm.form.valid"
+            class="ui-button-raised"></button>
+        <p-button label="Fermer" icon="pi pi-times" (click)="cancel()" class="ui-button-raised"></p-button>
+        <i class="pi pi-ellipsis-v" style="color: #999;margin-right: 5px"></i>
+        <p-button label="Nouveau" icon="pi pi-plus" (click)="addEntity()" *ngIf="editModel" class="ui-button-raised">
+        </p-button>
+    </p-footer>
+</form>

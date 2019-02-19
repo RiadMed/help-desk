@@ -1,0 +1,50 @@
+<form #addForm="ngForm">
+    <i class="pi pi-chevron-left ui-button-secondary back-btn-style" (click)="cancel()"></i>
+    <span class="card-title-style">Menu info :</span>
+    <hr />
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 10px">
+        <div class="ui-g">
+            <div class="ui-g-4 ui-md-3 ui-lg-3">
+                <label for="_label">Libellé</label>
+                <span style="color:red"> *</span> :
+            </div>
+            <div class="ui-g-8 ui-md-8 ui-lg-8">
+                <input type="text" id="_label" required pInputText [(ngModel)]="model.label" name="label" autofocus
+                    class="form-control col-md-11 col-lg-11">
+            </div>
+            <div class="ui-g-4 ui-md-3 ui-lg-3">
+                <label for="_root">Root</label>
+                <span style="color:red"> *</span> :
+            </div>
+            <div class="ui-g-8 ui-md-8 ui-lg-8">
+                <input type="text" id="_root" required pInputText [(ngModel)]="model.routers" name="routers"
+                    class="form-control col-md-11 col-lg-11">
+            </div>
+
+            <div class="ui-g-4 ui-md-3 ui-lg-3">
+                <label for="_icon">Icon :</label>
+            </div>
+            <div class="ui-g-8 ui-md-8 ui-lg-8">
+                <input type="text" id="_icon" pInputText [(ngModel)]="model.icon" name="icon"
+                    class="form-control col-md-11 col-lg-11">
+            </div>
+            <div class="ui-g-4 ui-md-3 ui-lg-3">
+                <label for="_color">Color</label>
+            </div>
+            <div class="ui-g-8 ui-md-8 ui-lg-8">
+                <input type="text" id="_color" pInputText [(ngModel)]="model.color" name="color"
+                    class="form-control col-md-11 col-lg-11">
+            </div>
+
+        </div>
+    </div>
+    <hr />
+    <p-footer>
+        <button pButton (click)="saveData()" icon="pi pi-check" label="Valider" [disabled]="!addForm.form.valid"
+            class="ui-button-raised"></button>
+        <p-button label="Fermer" icon="pi pi-times" (click)="cancel()" class="ui-button-raised"></p-button>
+        <i class="pi pi-ellipsis-v" style="color: #999;margin-right: 5px"></i>
+        <p-button label="Nouveau" icon="pi pi-plus" (click)="addEntity()" *ngIf="editModel" class="ui-button-raised">
+        </p-button>
+    </p-footer>
+</form>

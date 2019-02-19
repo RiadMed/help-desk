@@ -1,0 +1,15 @@
+export const API_URLS = {
+    LOGIN_API: "/login",
+    LOGOUT_API: "/logout",
+    MENU_API: "/menus",
+    USER_API: "/users",
+    ROLE_API: "/roles",
+    MARQUES_API: "/marques",
+    MARQUES_FAMILY_API: "/marques_family",
+    PROFESSION_API: "/professions",
+    STOCK_API: "/stocks",
+    HARDWARE_API: "/hardwares",
+    SOFTWARE_API: "/softwares",
+    PARTENER_API: "/parteners",
+    AFFECTATION_API: "/affectations",
+}

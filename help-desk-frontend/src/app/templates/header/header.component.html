@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand fixed-top navbar-dark bg-dark" *ngIf="isLoggedIn$ | async as isLoggedIn">
+  <a class="navbar-brand mr-auto mr-lg-0" routerLink="/home">EADN - Help desk
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01"
+    aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarsExample01">
+    <ul class="navbar-nav mr-auto">
+      <div *ngFor="let menu of datasource">
+        <li *ngIf="!menu.parents && menu.menu == null" class="nav-item">
+          <a class="nav-link {{url === menu.routers ? 'active-item' : ''}}" routerLink="{{menu.routers}}">{{menu.label}}
+          </a>
+        </li>
+        <li *ngIf="menu.parents" class="nav-item dropdown" style="cursor: pointer;">
+          <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">{{menu.label}}</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" routerLink="{{menu.routers}}">{{menu.label}}</a>
+            <a class="dropdown-item" *ngFor="let item of getMenusChilds(menu)"
+              routerLink="{{item.routers}}">{{item.label}}</a>
+          </div>
+        </li>
+      </div>
+    </ul>
+    <ul class="navbar-nav px-3">
+      <form>
+        <li class="nav-item dropdown" style="cursor: pointer;">
+          <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">{{lastName}} {{firstName}}</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item"><i class="fas fa-user-tie" style="color: #666;margin-right: 5px"></i> - Compte</a>
+            <a class="dropdown-item" (click)="onLogOut()"><i class="fas fa-sign-out-alt"
+                style="color: #666;margin-right: 5px"></i> - Sign out</a>
+          </div>
+        </li>
+        <!-- <a class="nav-link" (click)="onLogOut()" style="cursor: pointer;">( {{lastName}} ) - Sign
+        out </a> -->
+      </form>
+    </ul>
+  </div>
+</nav>
+
+
+<br />
+<br />

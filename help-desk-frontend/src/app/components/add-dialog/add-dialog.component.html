@@ -1,0 +1,31 @@
+<p-dialog header="Nouvelle marque" [(visible)]="showDialog" [modal]="true" [responsive]="true"
+  [style]="{width: '450px', minWidth: '200px'}" [minY]="70" [baseZIndex]="10000" (onHide)="onHide($event)">
+  <form [formGroup]="dialogform" (ngSubmit)="saveData()">
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 10px">
+      <div class="ui-g">
+        <div class="ui-g-4 ui-md-3 ui-lg-3">
+          <label for="_label">Libellé</label>
+          <span style="color:red"> *</span> :
+        </div>
+        <div class="ui-g-8 ui-md-9 ui-lg-9">
+          <input pInputText type="text" formControlName="label" placeholder="Libellé." autofocus />
+          <p-message severity="error" text="Le libellé est obligatoir."
+            *ngIf="!dialogform.controls['label'].valid&&dialogform.controls['label'].dirty"></p-message>
+
+          <div *ngIf="!dialogform.controls['label'].valid&&dialogform.controls['label'].dirty">
+            <p-message severity="error" text="Minimum 2 caractère."></p-message>
+          </div>
+          <div *ngIf="existLine">
+            <p-message severity="error" text="Cette ligne existe déja."></p-message>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <hr />
+    <p-footer>
+      <button type="submit" pButton icon="pi pi-check" [disabled]="!dialogform.valid" label="Valider"></button>
+      <button type="button" pButton icon="pi pi-times" (click)="hideDialog()" label="Fermer"></button>
+    </p-footer>
+  </form>
+</p-dialog>
