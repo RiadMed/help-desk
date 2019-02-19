@@ -1,0 +1,495 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+	<changeSet id="0001-01" author="RBOU">
+		<sql>
+			CREATE SCHEMA admin
+		</sql>
+		<sql>
+			CREATE SCHEMA apps
+		</sql>
+	</changeSet>
+
+
+	<changeSet id="0001-02" author="RBOU">
+
+		<createTable tableName="marque" schemaName="apps">
+			<column autoIncrement="true" name="id" type="SERIAL">
+				<constraints primaryKey="true" nullable="false"
+					primaryKeyName="marque_pk" />
+			</column>
+			<column name="label" type="VARCHAR(100)" />
+		</createTable>
+
+		<createTable tableName="profession" schemaName="apps">
+			<column autoIncrement="true" name="id" type="SERIAL">
+				<constraints primaryKey="true" nullable="false"
+					primaryKeyName="profession_pk" />
+			</column>
+			<column name="label" type="VARCHAR(100)" />
+		</createTable>
+
+		<createTable tableName="partener" schemaName="apps">
+			<column autoIncrement="true" name="id" type="SERIAL">
+				<constraints primaryKey="true" nullable="false"
+					primaryKeyName="partener_pk" />
+			</column>
+			<column name="label" type="VARCHAR(100)" />
+			<column name="last_name" type="VARCHAR(100)" />
+			<column name="profession_id" type="integer">
+				<constraints foreignKeyName="hardware_profession_fk"
+					references="apps.profession(id)" nullable="false" />
+			</column>
+		</createTable>
+
+		<createIndex indexName="partener_label" schemaName="apps"
+			tableName="partener">
+			<column name="label" type="varchar(100)" />
+		</createIndex>
+
+		<createIndex indexName="partener_last_name"
+			schemaName="apps" tableName="partener">
+			<column name="last_name" type="varchar(100)" />
+		</createIndex>
+
+		<createTable tableName="hardware" schemaName="apps">
+			<column autoIncrement="true" name="id" type="SERIAL">
+				<constraints primaryKey="true" nullable="false"
+					primaryKeyName="hardware_pk" />
+			</column>
+			<column name="serial_number" type="VARCHAR(100)">
+				<constraints unique="true" nullable="false" />
+			</column>
+			<column name="label" type="VARCHAR(200)" />
+			<column name="amount" type="integer" />
+			<column name="marque_id" type="integer">
+				<constraints foreignKeyName="hardware_marque_fk"
+					references="apps.marque(id)" nullable="false" />
+			</column>
+			<column name="acquisition_date"
+				type="timestamp without time zone" />
+		</createTable>
+
+		<createIndex indexName="hardware_label" schemaName="apps"
+			tableName="hardware">
+			<column name="label" type="varchar(100)" />
+		</createIndex>
+
+		<createTable tableName="software" schemaName="apps">
+			<column autoIncrement="true" name="id" type="SERIAL">
+				<constraints primaryKey="true" nullable="false"
+					primaryKeyName="software_pk" />
+			</column>
+			<column name="label" type="VARCHAR(100)" />
+			<column name="validate_date"
+				type="timestamp without time zone" />
+			<column name="acquisition_date"
+				type="timestamp without time zone" />
+			<column name="amount" type="integer" />
+			<column name="marque_id" type="integer">
+				<constraints foreignKeyName="hardware_marque_fk"
+					references="apps.marque(id)" nullable="false" />
+			</column>
+		</createTable>
+
+		<createIndex indexName="software_label" schemaName="apps"
+			tableName="software">
+			<column name="label" type="varchar(100)" />
+		</createIndex>
+
+		<createTable tableName="affectation" schemaName="apps">
+			<column autoIncrement="true" name="id" type="SERIAL">
+				<constraints primaryKey="true" nullable="false"
+					primaryKeyName="affectation_pk" />
+			</column>
+			<column name="partener_id" type="BIGINT" />
+			<column name="hardware_id" type="BIGINT" />
+			<column name="software_id" type="BIGINT" />
+			<column name="label" type="varchar(100)" />
+			<column name="date" type="timestamp without time zone" />
+			<column name="validation_date"
+				type="timestamp without time zone" />
+			<column name="active" type="boolean" />
+		</createTable>
+
+		<addForeignKeyConstraint
+			baseColumnNames="partener_id" baseTableName="affectation"
+			baseTableSchemaName="apps" constraintName="partener_affectation_fk"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedTableSchemaName="apps"
+			referencedColumnNames="id" referencedTableName="partener" />
+
+		<addForeignKeyConstraint
+			baseColumnNames="hardware_id" baseTableName="affectation"
+			baseTableSchemaName="apps" constraintName="hardware_affectation_fk"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedTableSchemaName="apps"
+			referencedColumnNames="id" referencedTableName="hardware" />
+
+		<addForeignKeyConstraint
+			baseColumnNames="software_id" baseTableName="affectation"
+			baseTableSchemaName="apps" constraintName="software_affectation_fk"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedTableSchemaName="apps"
+			referencedColumnNames="id" referencedTableName="software" />
+
+		<createIndex indexName="affectation_partener_id"
+			schemaName="apps" tableName="affectation">
+			<column name="partener_id" type="BIGINT" />
+		</createIndex>
+
+		<createIndex indexName="affectation_hardware_id"
+			schemaName="apps" tableName="affectation">
+			<column name="hardware_id" type="BIGINT" />
+		</createIndex>
+
+		<createIndex indexName="affectation_software_id"
+			schemaName="apps" tableName="affectation">
+			<column name="software_id" type="BIGINT" />
+		</createIndex>
+
+		<createTable tableName="user" schemaName="admin">
+			<column autoIncrement="true" name="id" type="SERIAL">
+				<constraints primaryKey="true" nullable="false"
+					primaryKeyName="user_pk" />
+			</column>
+			<column name="username" type="VARCHAR(100)">
+				<constraints unique="true" nullable="false" />
+			</column>
+			<column name="password" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="last_name" type="VARCHAR(100)" />
+			<column name="first_name" type="VARCHAR(100)" />
+			<column name="address" type="VARCHAR(255)" />
+			<column name="ip_address" type="VARCHAR(20)" />
+			<column name="admin" type="boolean" />
+			<column name="valid" type="boolean" />
+			<column name="phone" type="VARCHAR(20)" />
+			<column name="email" type="VARCHAR(100)" />
+		</createTable>
+		<createIndex indexName="user_username" schemaName="admin"
+			tableName="user">
+			<column name="username" type="varchar(100)" />
+		</createIndex>
+
+		<createTable tableName="roles" schemaName="admin">
+			<column autoIncrement="true" name="id" type="SERIAL">
+				<constraints primaryKey="true" nullable="false"
+					primaryKeyName="roles_pk" />
+			</column>
+			<column name="code" type="VARCHAR(150)">
+				<constraints unique="true" nullable="false" />
+			</column>
+			<column name="label" type="VARCHAR(150)" />
+		</createTable>
+		<createIndex indexName="roles_label" schemaName="admin"
+			tableName="roles">
+			<column name="label" type="varchar(150)" />
+		</createIndex>
+		<createIndex indexName="roles_code" schemaName="admin"
+			tableName="roles">
+			<column name="code" type="varchar(150)" />
+		</createIndex>
+
+		<createTable tableName="user_role" schemaName="admin">
+			<column name="user_id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="role_id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<addPrimaryKey columnNames="user_id, role_id"
+			tableName="user_role" schemaName="admin" />
+
+		<addForeignKeyConstraint
+			baseColumnNames="role_id" baseTableName="user_role"
+			baseTableSchemaName="admin" constraintName="user_role_role_fk"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedTableSchemaName="admin"
+			referencedColumnNames="id" referencedTableName="roles" />
+
+		<addForeignKeyConstraint
+			baseColumnNames="user_id" baseTableName="user_role"
+			baseTableSchemaName="admin" constraintName="user_role_user_fk"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedTableSchemaName="admin"
+			referencedColumnNames="id" referencedTableName="user" />
+
+
+		<createTable tableName="menu" schemaName="admin">
+			<column autoIncrement="true" name="id" type="SERIAL">
+				<constraints primaryKey="true" nullable="false"
+					primaryKeyName="menu_pk" />
+			</column>
+			<column name="label" type="VARCHAR(100)" />
+			<column name="routers" type="VARCHAR(100)" />
+			<column name="urls" type="VARCHAR(255)" />
+			<column name="icon" type="VARCHAR(100)" />
+			<column name="color" type="VARCHAR(100)" />
+			<column name="parents" type="boolean" />
+			<column name="menu_id" type="integer">
+				<constraints foreignKeyName="menu_menu_fk"
+					references="admin.menu(id)" />
+			</column>
+		</createTable>
+
+		<createTable tableName="user_menu" schemaName="admin">
+			<column name="user_id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="menu_id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<addPrimaryKey columnNames="user_id, menu_id"
+			tableName="user_menu" schemaName="admin" />
+
+		<addForeignKeyConstraint
+			baseColumnNames="menu_id" baseTableName="user_menu"
+			baseTableSchemaName="admin" constraintName="user_menu_menu_fk"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedTableSchemaName="admin"
+			referencedColumnNames="id" referencedTableName="menu" />
+
+		<addForeignKeyConstraint
+			baseColumnNames="user_id" baseTableName="user_menu"
+			baseTableSchemaName="admin" constraintName="user_menu_user_fk"
+			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
+			onUpdate="NO ACTION" referencedTableSchemaName="admin"
+			referencedColumnNames="id" referencedTableName="user" />
+
+	</changeSet>
+
+	<changeSet id="0001-03" author="RBOU">
+		<createTable tableName="stock" schemaName="apps">
+			<column autoIncrement="true" name="id" type="SERIAL">
+				<constraints primaryKey="true" nullable="false"
+					primaryKeyName="stock_pk" />
+			</column>
+			<column name="label" type="VARCHAR(200)" />
+			<column name="date_in" type="timestamp without time zone" />
+			<column name="date_out" type="timestamp without time zone" />
+			<column name="quantity" type="integer" />
+		</createTable>
+		<addColumn tableName="software" schemaName="apps">
+			<column name="key" type="varchar(100)" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="0001-04" author="RBOU">
+		<insert schemaName="admin" tableName="user">
+			<column name="username" value="admin" />
+			<column name="password"
+				value="$2a$10$SRsfjJvc31rErn8PwAYywuFNoX0.hUzxPFpiFtpeJkVfXtjk6WmwK" />
+			<column name="last_name" value="Boumendjas" />
+			<column name="first_name" value="Mohamed Riadh" />
+			<column name="address" value="Blida" />
+			<column name="ip_address" value="0.0.0.0" />
+			<column name="admin" valueBoolean="true" />
+			<column name="valid" valueBoolean="true" />
+			<column name="phone" value="0550 902 514" />
+			<column name="email" value="mr.boumendjas@gmail.com" />
+
+		</insert>
+		<insert schemaName="admin" tableName="user">
+			<column name="username" value="user" />
+			<column name="password"
+				value="$2a$10$SRsfjJvc31rErn8PwAYywuFNoX0.hUzxPFpiFtpeJkVfXtjk6WmwK" />
+			<column name="last_name" value="User" />
+			<column name="first_name" value="User" />
+			<column name="address" value="ALger" />
+			<column name="ip_address" value="0.0.0.0" />
+			<column name="admin" valueBoolean="false" />
+			<column name="valid" valueBoolean="true" />
+			<column name="phone" value="000000000" />
+			<column name="email" value="user@gmail.com" />
+
+		</insert>
+
+		<insert tableName="roles" schemaName="admin">
+			<column name="code" value="ADMIN" />
+			<column name="label" value="Adminsitrateur" />
+		</insert>
+		<insert tableName="roles" schemaName="admin">
+			<column name="code" value="USER" />
+			<column name="label" value="Utilisateur" />
+		</insert>
+
+		<insert tableName="user_role" schemaName="admin">
+			<column name="user_id" value="1" />
+			<column name="role_id" value="1" />
+		</insert>
+		<insert tableName="user_role" schemaName="admin">
+			<column name="user_id" value="1" />
+			<column name="role_id" value="2" />
+		</insert>
+		<insert tableName="user_role" schemaName="admin">
+			<column name="user_id" value="2" />
+			<column name="role_id" value="2" />
+		</insert>
+
+		<insert tableName="menu" schemaName="admin">
+			<column name="label" value="Affectation" />
+			<column name="routers" value="affectations" />
+			<column name="icon" value="pi pi-table" />
+			<column name="parents" value="true" />
+		</insert>
+
+		<insert tableName="menu" schemaName="admin">
+			<column name="label" value="Stock" />
+			<column name="routers" value="stocks" />
+			<column name="icon" value="pi pi-table" />
+			<column name="parents" value="false" />
+			<column name="menu_id" value="1" />
+		</insert>
+
+		<insert tableName="menu" schemaName="admin">
+			<column name="label" value="Personnel" />
+			<column name="routers" value="parteners" />
+			<column name="icon" value="pi pi-table" />
+			<column name="parents" value="true" />
+		</insert>
+
+		<insert tableName="menu" schemaName="admin">
+			<column name="label" value="Materiel" />
+			<column name="routers" value="hardwares" />
+			<column name="icon" value="pi pi-table" />
+			<column name="parents" value="false" />
+		</insert>
+
+		<insert tableName="menu" schemaName="admin">
+			<column name="label" value="Logiciel" />
+			<column name="routers" value="softwares" />
+			<column name="icon" value="pi pi-table" />
+			<column name="parents" value="false" />
+		</insert>
+
+		<insert tableName="menu" schemaName="admin">
+			<column name="label" value="Profession" />
+			<column name="routers" value="professions" />
+			<column name="icon" value="pi pi-table" />
+			<column name="parents" value="false" />
+			<column name="menu_id" value="3" />
+		</insert>
+
+		<insert tableName="menu" schemaName="admin">
+			<column name="label" value="Marque" />
+			<column name="routers" value="marques" />
+			<column name="icon" value="pi pi-table" />
+			<column name="parents" value="true" />
+		</insert>
+
+		<insert tableName="menu" schemaName="admin">
+			<column name="label" value="Famile de marque" />
+			<column name="routers" value="marques_family" />
+			<column name="icon" value="pi pi-table" />
+			<column name="parents" value="false" />
+			<column name="menu_id" value="7" />
+		</insert>
+
+		<insert tableName="menu" schemaName="admin">
+			<column name="label" value="Configuration" />
+			<column name="routers" value="" />
+			<column name="icon" value="pi pi-table" />
+			<column name="parents" value="false" />
+		</insert>
+
+		<insert tableName="user_menu" schemaName="admin">
+			<column name="user_id" value="1" />
+			<column name="menu_id" value="1" />
+		</insert>
+
+		<insert tableName="user_menu" schemaName="admin">
+			<column name="user_id" value="1" />
+			<column name="menu_id" value="2" />
+		</insert>
+
+		<insert tableName="user_menu" schemaName="admin">
+			<column name="user_id" value="1" />
+			<column name="menu_id" value="3" />
+		</insert>
+
+		<insert tableName="user_menu" schemaName="admin">
+			<column name="user_id" value="1" />
+			<column name="menu_id" value="4" />
+		</insert>
+
+		<insert tableName="user_menu" schemaName="admin">
+			<column name="user_id" value="1" />
+			<column name="menu_id" value="5" />
+		</insert>
+
+		<insert tableName="user_menu" schemaName="admin">
+			<column name="user_id" value="1" />
+			<column name="menu_id" value="6" />
+		</insert>
+
+		<insert tableName="user_menu" schemaName="admin">
+			<column name="user_id" value="1" />
+			<column name="menu_id" value="7" />
+		</insert>
+
+		<insert tableName="user_menu" schemaName="admin">
+			<column name="user_id" value="1" />
+			<column name="menu_id" value="8" />
+		</insert>
+
+	</changeSet>
+
+	<changeSet id="0001-05" author="RBOU">
+		<addColumn tableName="affectation" schemaName="apps">
+			<column name="key" type="VARCHAR(50)" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="0001-06" author="RBOU">
+		<addColumn tableName="affectation" schemaName="apps">
+			<column name="serial_number" type="VARCHAR(50)" />
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="0001-07" author="RBOU">
+		<createTable tableName="marque_family" schemaName="apps">
+			<column autoIncrement="true" name="id" type="SERIAL">
+				<constraints primaryKey="true" nullable="false"
+					primaryKeyName="marque_family_pk" />
+			</column>
+			<column name="label" type="VARCHAR(100)" />
+		</createTable>
+		<addColumn tableName="marque" schemaName="apps">
+			<column name="marque_family_id" type="integer">
+				<constraints foreignKeyName="marque_family_fk"
+					references="apps.marque_family(id)" />
+			</column>
+		</addColumn>
+
+		<insert tableName="marque_family" schemaName="apps">
+			<column name="label" value="Logiciel" />
+		</insert>
+
+		<insert tableName="marque_family" schemaName="apps">
+			<column name="label" value="Materiel" />
+		</insert>
+
+		<dropColumn tableName="hardware" columnName="serial_number"
+			schemaName="apps" />
+		<dropColumn tableName="software" columnName="key"
+			schemaName="apps" />
+
+		<addColumn tableName="software" schemaName="apps">
+			<column name="icon" type="VARCHAR(20)" />
+		</addColumn>
+		<addColumn tableName="hardware" schemaName="apps">
+			<column name="icon" type="VARCHAR(20)" />
+		</addColumn>
+
+	</changeSet>
+
+</databaseChangeLog>
