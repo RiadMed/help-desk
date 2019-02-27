@@ -4,6 +4,7 @@ import { MessageService } from "primeng/components/common/api";
 import { MarqueFamily } from "src/app/buisness/models/marque-family";
 import { MarqueFamilyService } from "src/app/buisness/services/marque-family.service";
 import { AddGenericComponent } from "../add-generic-component";
+import { FormGroup } from "@angular/forms";
 
 @Component({
     selector: 'add-marque-family',
@@ -18,6 +19,16 @@ export class AddMarqueFamilyComponent extends AddGenericComponent<MarqueFamily, 
     }
 
     protected afterInit(): void {
+    }
+
+    protected loadFormModels(): any[] {
+        return [];
+    }
+    protected initFormGroup(): FormGroup {
+        return null;
+    }
+    protected loadFormGroup(): FormGroup {
+        return null;
     }
 
     protected beforSave(): void {

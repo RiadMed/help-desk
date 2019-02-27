@@ -6,13 +6,14 @@ import { AddGenericComponent } from "../add-generic-component";
 import { NgxSpinnerService } from "ngx-spinner";
 import { Hardware } from "src/app/buisness/models/hardware";
 import { HardwareService } from "src/app/buisness/services/hardware.service";
+import { FormGroup } from "@angular/forms";
 
 @Component({
     selector: 'add-hardware',
     templateUrl: './add-hardware.component.html'
 })
 export class AddHardwareComponent extends AddGenericComponent<Hardware, HardwareService> {
-
+    
     @Input('items') marqueItems: Array<Marque>;
     @Input() marque: Marque;
 
@@ -32,6 +33,16 @@ export class AddHardwareComponent extends AddGenericComponent<Hardware, Hardware
             this.model.acquisitionDate = new Date();
             this.marque = new Marque();
         }
+    }
+
+    protected loadFormModels(): any[] {
+        return [];
+    }
+    protected initFormGroup(): FormGroup {
+        return null;
+    }
+    protected loadFormGroup(): FormGroup {
+        return null;
     }
 
     protected beforSave(): void {

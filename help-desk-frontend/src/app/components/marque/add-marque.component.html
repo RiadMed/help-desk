@@ -1,39 +1,35 @@
-<form #addForm="ngForm">
+<form [formGroup]="addForm" (ngSubmit)="saveDataForm(addForm.value)">
     <i class="pi pi-chevron-left ui-button-secondary back-btn-style" (click)="cancel()"></i>
     <span class="card-title-style">Marque info :</span>
     <hr />
     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 10px">
-        <div class="ui-g">
-            <div class="ui-g-4 ui-md-3 ui-lg-3">
-                <label for="_label">Libellé</label>
-                <span style="color:red"> *</span> :
+        <!--<div class="ui-g" *ngFor="let item of formsGroups" [ngSwitch]="item.controlType">
+             <div class="ui-g-4 ui-md-3 ui-lg-3">
+                <label for="_label">{{item.label}}</label>
+                <span style="color:red" *ngIf="item.required"> *</span> :
             </div>
             <div class="ui-g-8 ui-md-8 ui-lg-8">
-                <input type="text" id="_label" [pKeyFilter]="blockSpecial" required pInputText autofocus
-                    [(ngModel)]="model.label" name="label" onkeyup="this.value = this.value.toUpperCase();"
-                    class="form-control col-md-11 col-lg-11" placeholder="Libellé." minlength="2" #name="ngModel">
-                <div *ngIf="name.errors?.minlength">
-                    <p-message severity="error" text="Minimum 2 caractère."></p-message>
+                <input *ngSwitchCase="'text'" type="text" [id]="item.column" [pKeyFilter]="blockSpecial" pInputText
+                    autofocus [formControlName]="item.column" class="form-control col-md-11 col-lg-11"
+                    placeholder="Libellé.">
+                <ng-select *ngSwitchCase="'select'" [items]="item.options" bindLabel="label" bindValue="id"
+                    [formControlName]="item.column" [id]="item.column">
+                </ng-select>
+                <i class="fas fa-plus-square show-ref-dialog-style" (click)="showDialog()"
+                    *ngIf="item.showAdd"></i>
+                <div *ngIf="!addForm.controls[item.column].valid&&addForm.controls[item.column].dirty">
+                    <p-message severity="error" text="{{item.message}}" style="width: 90%"></p-message>
                 </div>
-            </div>
-            <div class="ui-g-4 ui-md-3 ui-lg-3">
-                <label for="_family_marque">Famille de marque :</label>
-            </div>
-            <div class="ui-g-8 ui-md-8 ui-lg-8">
-                <p-dropdown id="_family_marque" [options]="marqueFamilyItems" [(ngModel)]="marqueFamily"
-                    name="marqueFamily" placeholder="Select a Marque" [style]="{'width':'90%','float':'left'}"
-                    optionLabel="label" [showClear]="true" [autoWidth]="false">
-                </p-dropdown>
-                <i class="fas fa-plus-square show-ref-dialog-style" (click)="showDialog()"></i>
-            </div>
 
-
-        </div>
+            </div>
+        </div> -->
+        <app-info-form-generic *ngFor="let item of formsGroups" [model]="item" [form]="addForm">
+        </app-info-form-generic>
     </div>
     <hr />
     <p-footer>
-        <button pButton (click)="saveData()" icon="pi pi-check" label="Valider" [disabled]="!addForm.form.valid"
-            class="ui-button-raised"></button>
+        <button pButton type="submit" icon="pi pi-check" label="Valider" class="ui-button-raised"
+            [disabled]="!addForm.valid"></button>
         <p-button label="Fermer" icon="pi pi-times" (click)="cancel()" class="ui-button-raised"></p-button>
         <i class="pi pi-ellipsis-v" style="color: #999;margin-right: 5px"></i>
         <p-button label="Nouveau" icon="pi pi-plus" (click)="addEntity()" *ngIf="editModel" class="ui-button-raised">
@@ -42,7 +38,7 @@
 </form>
 
 
-<app-add-dialog [datasource]="marqueFamilyItems" [appModel]="marqueFamily" [showDialog]="display"
-    [service]="marqueFamilyService" (pushDataEvent)="marqueFamilyItems=$event" (hideDialogEvent)="display=$event"
-    (pushModelEvent)="marqueFamily=$event">
-</app-add-dialog>
+<!-- <app-add-dialog [datasource]="marqueFamilyItems" [showDialog]="display" [service]="marqueFamilyService"
+    (pushDataEvent)="marqueFamilyItems=$event" (hideDialogEvent)="display=$event" [dialogform]="dlgFormGroup"
+    (pushModelEvent)="marqueFamily=$event" [formsGroups]="dlgGroups">
+</app-add-dialog> -->

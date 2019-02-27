@@ -4,6 +4,7 @@ import { MessageService } from "primeng/components/common/api";
 import { ParentModel } from "../buisness/models/parent-model";
 import { GenericService } from "../buisness/services/generic-service";
 import { AppUtils } from "../helpers/app-utils";
+import { FormGroup, NgForm } from "@angular/forms";
 
 export abstract class AddGenericComponent<T extends ParentModel, S extends GenericService<T>> implements OnInit {
 
@@ -16,6 +17,8 @@ export abstract class AddGenericComponent<T extends ParentModel, S extends Gener
     @Output() pushDataEvent = new EventEmitter();
 
     protected appUtils: AppUtils;
+    protected addForm: FormGroup;
+    protected formsGroups: any[];
 
     blockSpecial: RegExp = /^[^<>*!]+$/;
 
@@ -25,11 +28,20 @@ export abstract class AddGenericComponent<T extends ParentModel, S extends Gener
 
     ngOnInit(): void {
         this.addModel = false;
+        this.formsGroups = this.loadFormModels();
+        if (this.editModel) {
+            this.addForm = this.loadFormGroup();
+        } else {
+            this.addForm = this.initFormGroup();
+        }
         this.afterInit();
         this.appUtils = new AppUtils(this.ngxSpinnerService, this.messageService, null);
     }
 
     protected abstract afterInit(): void;
+    protected abstract loadFormModels(): any[];
+    protected abstract initFormGroup(): FormGroup;
+    protected abstract loadFormGroup(): FormGroup;
     protected abstract afterAdd(): void;
     protected abstract beforSave(): void;
     protected abstract afterSave(): void;
@@ -37,6 +49,7 @@ export abstract class AddGenericComponent<T extends ParentModel, S extends Gener
     public addEntity(): void {
         this.editModel = false;
         this.addModel = true;
+        this.addForm = this.initFormGroup();
         this.appUtils.showInfoMessages("Mode d'écriture est activé.");
         this.afterAdd();
     }
@@ -53,6 +66,24 @@ export abstract class AddGenericComponent<T extends ParentModel, S extends Gener
                         this.listAll = _datasource;
                         this.pushDataEvent.emit(this.listAll);
                     }
+                }
+                this.hidePanel();
+                this.appUtils.loadSpinner(200);
+                this.appUtils.showInfoMessages('Operation effectuée avec succès');
+            }
+        );
+    }
+
+    public saveDataForm(modelForm: NgForm) {
+        this.beforSave();
+        let _datasource = [...this.listAll];
+        this.service.saveForm(modelForm).subscribe(
+            (data: T) => {
+                let model = data;
+                if (this.listAll) {
+                    _datasource.push(model);
+                    this.listAll = _datasource;
+                    this.pushDataEvent.emit(this.listAll);
                 }
                 this.hidePanel();
                 this.appUtils.loadSpinner(200);

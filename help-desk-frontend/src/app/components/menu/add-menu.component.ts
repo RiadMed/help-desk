@@ -4,6 +4,7 @@ import { MenuService } from "src/app/buisness/services/menu.service";
 import { MessageService } from "primeng/components/common/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { AddGenericComponent } from "../add-generic-component";
+import { FormGroup } from "@angular/forms";
 
 @Component({
     selector: 'add-menu',
@@ -18,6 +19,16 @@ export class AddMenuComponent extends AddGenericComponent<Menu, MenuService> {
     }
 
     protected afterInit(): void {
+    }
+
+    protected loadFormModels(): any[] {
+        return [];
+    }
+    protected initFormGroup(): FormGroup {
+        return null;
+    }
+    protected loadFormGroup(): FormGroup {
+        return null;
     }
 
     protected beforSave(): void {

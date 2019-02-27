@@ -26,6 +26,7 @@
     "@fortawesome/fontawesome-free": "^5.7.1",
     "@hardpool/ngx-spinner": "^2.2.1",
     "@ng-bootstrap/ng-bootstrap": "^4.0.2",
+    "@ng-select/ng-select": "^2.15.3",
     "@ngx-progressbar/core": "^4.0.0-beta.0",
     "bootstrap": "^4.2.1",
     "chart.js": "^2.7.3",

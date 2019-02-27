@@ -5,6 +5,7 @@ import { Partener } from "src/app/buisness/models/partener";
 import { Profession } from "src/app/buisness/models/profession";
 import { PartenerService } from "src/app/buisness/services/partener.service";
 import { AddGenericComponent } from "../add-generic-component";
+import { FormGroup } from "@angular/forms";
 
 @Component({
     selector: 'add-partener',
@@ -30,6 +31,16 @@ export class AddPartenerComponent extends AddGenericComponent<Partener, Partener
             this.model = new Partener();
             this.profession = new Profession();
         }
+    }
+
+    protected loadFormModels(): any[] {
+        return [];
+    }
+    protected initFormGroup(): FormGroup {
+        return null;
+    }
+    protected loadFormGroup(): FormGroup {
+        return null;
     }
 
     protected beforSave(): void {

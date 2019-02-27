@@ -7,6 +7,7 @@ import { SoftwareService } from "src/app/buisness/services/software.service";
 import { AddGenericComponent } from "../add-generic-component";
 import { Stock } from "src/app/buisness/models/stock";
 import { StockService } from "src/app/buisness/services/stock.service";
+import { FormGroup } from "@angular/forms";
 
 @Component({
     selector: 'add-stock',
@@ -28,6 +29,16 @@ export class AddStockComponent extends AddGenericComponent<Stock, StockService> 
             this.model = new Stock();
             this.model.dateIn = new Date();
         }
+    }
+
+    protected loadFormModels(): any[] {
+        return [];
+    }
+    protected initFormGroup(): FormGroup {
+        return null;
+    }
+    protected loadFormGroup(): FormGroup {
+        return null;
     }
 
     protected beforSave(): void {

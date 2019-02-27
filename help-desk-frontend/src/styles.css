@@ -195,6 +195,11 @@ body .ui-dropdown-panel .ui-dropdown-items{
     border-color: #00425c;
   }
 
+  body .ui-button:enabled:hover{
+    background: #00425c;
+    border-color: #00425c;
+  }
+
   body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active{
     background: #009e99 !important;
     border-color: #009e99;
@@ -595,15 +600,15 @@ body .ui-chkbox .ui-chkbox-box .ui-chkbox-icon{
     color: #00425C
 }
 
-#_label{
+#label{
     text-transform: uppercase;
 }
 
-#_firstName{
+#firstName{
     text-transform: uppercase; 
 }
 
-#_lastName{
+#lastName{
     text-transform: uppercase; 
 }
 
@@ -631,4 +636,40 @@ body .ui-chkbox .ui-chkbox-box .ui-chkbox-icon{
 body .ui-table .ui-sortable-column.ui-state-highlight {
     background-color: #00425c !important;
     color: #fff !important;
+}
+
+.ng-select{
+    width: 92%;
+    
+}
+
+.ng-select .ng-select-container{
+    border: none;
+    width: 93%;
+}
+
+.ng-select.ng-select-single .ng-select-container .ng-value-container, .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value{
+    margin-top: -4px;
+    margin-left: 5px;
+}
+
+.ng-select .ng-select-container{
+    min-height: 25px;
+    background: transparent
+}
+
+.ng-select.ng-select-focused .ng-select-container:after{
+    border-color: #d7007f
+}
+
+.ng-select.ng-select-opened>.ng-select-container {
+    background: transparent;
+}
+
+.ng-select.ng-select-single .ng-select-container .ng-value-container, .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value {
+    white-space: normal;
+}
+
+body .ui-message{
+    width: 92%;
 }

@@ -1,0 +1,27 @@
+<div class="ui-g" [formGroup]="addForm" [ngSwitch]="modelForm.controlType">
+  <div class="ui-g-4 ui-md-3 ui-lg-3">
+    <label [for]="modelForm.column">{{modelForm.label}}</label>
+    <span style="color:red" *ngIf="modelForm.required"> *</span> :
+  </div>
+  <div class="ui-g-8 ui-md-8 ui-lg-8">
+
+    <input *ngSwitchCase="'text'" [type]="modelForm.controlType" [id]="modelForm.column" [pKeyFilter]="blockSpecial"
+      pInputText autofocus [formControlName]="modelForm.column" class="form-control col-md-11 col-lg-11"
+      [placeholder]="modelForm.column">
+
+    <ng-select *ngSwitchCase="'select'" [items]="modelForm.options" bindLabel="label" bindValue="id"
+      [formControlName]="modelForm.column" [id]="modelForm.column">
+    </ng-select>
+
+    <p-calendar *ngSwitchCase="'date'" [id]="modelForm.column" [showIcon]="true" [formControlName]="modelForm.column"
+      dateFormat="dd/mm/yy" [placeholder]="modelForm.column"></p-calendar>
+
+    <input *ngSwitchCase="'number'" [type]="modelForm.controlType" [id]="modelForm.column" pInputText pKeyFilter="num"
+      [formControlName]="modelForm.column" class="form-control col-md-11 col-lg-11" [placeholder]="modelForm.column">
+
+    <div *ngIf="!addForm.controls[modelForm.column].valid&&addForm.controls[modelForm.column].dirty">
+      <p-message severity="error" [text]="modelForm.message" style="width: 90%"></p-message>
+    </div>
+
+  </div>
+</div>

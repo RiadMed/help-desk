@@ -42,6 +42,16 @@ export class AddSoftwareComponent extends AddGenericComponent<Software, Software
         }
     }
 
+    protected loadFormModels(): any[] {
+        return [];
+    }
+    protected initFormGroup(): FormGroup {
+        return null;
+    }
+    protected loadFormGroup(): FormGroup {
+        return null;
+    }
+
     protected beforSave(): void {
         this.model.marqueId = this.marque.id;
         this.model.marqueLabel = this.marque.label;

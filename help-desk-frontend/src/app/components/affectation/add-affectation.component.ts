@@ -10,6 +10,7 @@ import { AddGenericComponent } from "../add-generic-component";
 import { HardwareService } from "src/app/buisness/services/hardware.service";
 import { Software } from "src/app/buisness/models/software";
 import { SoftwareService } from "src/app/buisness/services/software.service";
+import { FormGroup } from "@angular/forms";
 
 @Component({
     selector: 'add-affectation',
@@ -53,6 +54,16 @@ export class AddAffectationComponent extends AddGenericComponent<Affectation, Af
         } else {
             this.initValues();
         }
+    }
+
+    protected loadFormModels(): any[] {
+        return [];
+    }
+    protected initFormGroup(): FormGroup {
+        return null;
+    }
+    protected loadFormGroup(): FormGroup {
+        return null;
     }
 
     protected beforSave(): void {

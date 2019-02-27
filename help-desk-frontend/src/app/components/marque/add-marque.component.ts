@@ -1,11 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { MarqueService } from "src/app/buisness/services/marque.service";
+import { Component, Input } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from "primeng/components/common/api";
 import { Marque } from "src/app/buisness/models/Marque";
-import { AddGenericComponent } from "../add-generic-component";
-import { NgxSpinnerService } from "ngx-spinner";
 import { MarqueFamily } from "src/app/buisness/models/marque-family";
-import { MarqueFamilyService } from "src/app/buisness/services/marque-family.service";
+import { ModelForm } from "src/app/buisness/models/model-form";
+import { MarqueService } from "src/app/buisness/services/marque.service";
+import { AddGenericComponent } from "../add-generic-component";
 
 @Component({
     selector: 'add-marque',
@@ -14,29 +15,43 @@ import { MarqueFamilyService } from "src/app/buisness/services/marque-family.ser
 export class AddMarqueComponent extends AddGenericComponent<Marque, MarqueService> {
 
     @Input('items') marqueFamilyItems: Array<MarqueFamily>;
-    @Input() marqueFamily: MarqueFamily;
 
     display: boolean;
+    dlgGroups: any[];
+    dlgFormGroup: FormGroup;
 
     constructor(marqueService: MarqueService
         , messageService: MessageService
         , ngxSpinnerService: NgxSpinnerService
-        , private marqueFamilyService: MarqueFamilyService) {
+        , private formBuilder: FormBuilder) {
         super(marqueService, messageService, ngxSpinnerService);
     }
 
     protected afterInit(): void {
         this.display = false;
-        if (this.editModel) {
-            if (this.marqueFamilyItems)
-                this.marqueFamily = this.marqueFamilyItems.find(x => x.id == this.model.marqueFamilyId);
-        }else{
-            this.marqueFamily = new MarqueFamily();
-        }
+    }
+
+    protected loadFormModels(): any[] {
+        return [
+            new ModelForm("label", "Libellé", true, "text", false, null, false, "Minimum 2 caractère."),
+            new ModelForm("marqueFamilyId", "Famille de marque", true, "select", false, this.marqueFamilyItems, true, "Veuillez sélectionner la famille de marque.")
+        ]
+    }
+
+    protected initFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            'label': new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
+            'marqueFamilyId': new FormControl('', Validators.required)
+        });
+    }
+    protected loadFormGroup(): FormGroup {
+        return new FormGroup({
+            label: new FormControl(this.model.label, Validators.compose([Validators.required, Validators.minLength(2)])),
+            marqueFamilyId: new FormControl(this.model.marqueFamilyId, Validators.required)
+        });
     }
 
     protected beforSave(): void {
-        this.model.marqueFamilyId = this.marqueFamily.id;
     }
 
     protected afterAdd(): void {
@@ -47,7 +62,14 @@ export class AddMarqueComponent extends AddGenericComponent<Marque, MarqueServic
     }
 
     showDialog() {
-        this.marqueFamily = new MarqueFamily();
+        this.dlgGroups = [
+            new ModelForm("label", "Libellé", true, "text", false, null, false, "Minimum 2 caractère.")
+        ]
+
+        this.dlgFormGroup = this.formBuilder.group({
+            'label': new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
+        });
+
         this.display = true;
     }
 }

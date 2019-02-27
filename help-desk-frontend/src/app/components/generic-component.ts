@@ -1,12 +1,11 @@
-import { ParentModel } from "../buisness/models/parent-model";
 import { OnInit } from "@angular/core";
-import { GenericService } from "../buisness/services/generic-service";
 import { Router } from '@angular/router';
-import { ConfirmationService, MessageService } from "primeng/components/common/api";
 import { NgxSpinnerService } from "ngx-spinner";
-import { AppUtils } from "../helpers/app-utils";
-import { FormGroup } from "@angular/forms";
+import { ConfirmationService, MessageService } from "primeng/components/common/api";
+import { ParentModel } from "../buisness/models/parent-model";
 import { ExcelService } from "../buisness/services/excel.service";
+import { GenericService } from "../buisness/services/generic-service";
+import { AppUtils } from "../helpers/app-utils";
 
 export abstract class GenericComponent<T extends ParentModel, S extends GenericService<T>> implements OnInit {
 
@@ -38,6 +37,10 @@ export abstract class GenericComponent<T extends ParentModel, S extends GenericS
         this.columns = this.loadColumns();
         this.listAll = new Array();
         this.afterInit();
+        this.service.refreshData.subscribe(()=>{
+            if (this.loadDataOnInit)
+            this.findAll();
+        })
         if (this.loadDataOnInit)
             this.findAll();
 

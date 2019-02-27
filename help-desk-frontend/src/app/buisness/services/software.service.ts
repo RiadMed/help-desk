@@ -3,6 +3,7 @@ import { Software } from '../models/software';
 import { GenericService } from './generic-service';
 import { HttpClient } from '@angular/common/http';
 import { API_URLS } from 'src/app/helpers/api.url';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'

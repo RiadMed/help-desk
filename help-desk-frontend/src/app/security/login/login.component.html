@@ -14,7 +14,7 @@
           <input type="text" autofocus id="username" pInputText formControlName="username"
             class="form-control col-md-12 col-lg-12" placeholder="Nom d'utilisateur..">
           <div *ngIf="!loginForm.controls['username'].valid&&loginForm.controls['username'].dirty">
-            <p-message severity="error" text="Minimum 2 caractère."></p-message>
+            <p-message severity="error" text="Minimum 4 caractère."></p-message>
           </div>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-12">

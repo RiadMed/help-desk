@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { ParentModel } from 'src/app/buisness/models/parent-model';
 import { GenericService } from 'src/app/buisness/services/generic-service';
 import { AppUtils } from 'src/app/helpers/app-utils';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { MessageService } from 'primeng/primeng';
 
 @Component({
   selector: 'app-add-dialog',
@@ -10,13 +12,14 @@ import { AppUtils } from 'src/app/helpers/app-utils';
 })
 export class AddDialogComponent<T extends ParentModel, S extends GenericService<T>> implements OnInit {
 
-  dialogform: FormGroup;
+  @Input() dialogform: FormGroup;
   existLine: boolean;
 
   @Input('datasource') listAll: Array<T>;
   @Input('appModel') model: T;
   @Input() showDialog: boolean;
   @Input() service: S;
+  @Input() formsGroups: any[];
 
   @Output() pushDataEvent = new EventEmitter();
   @Output() pushModelEvent = new EventEmitter();
@@ -24,21 +27,21 @@ export class AddDialogComponent<T extends ParentModel, S extends GenericService<
 
   protected appUtils: AppUtils;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder
+    , private ngxSpinnerService: NgxSpinnerService
+    , private messageService: MessageService) { }
 
   ngOnInit() {
-    this.dialogform = this.formBuilder.group({
-      'label': new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)]))
-    });
+    this.appUtils = new AppUtils(this.ngxSpinnerService, this.messageService, null);
   }
 
-  public saveData() {
+  public saveDataForm(dlgForm: NgForm) {
     this.model.label = this.dialogform.get('label').value;
     let _datasource = [...this.listAll];
     let _model = _datasource.find(x => x.label.toLowerCase() == this.model.label.toLowerCase());
     this.existLine = _model != null;
     if (!this.existLine) {
-      this.service.saveData(this.model, false).subscribe(
+      this.service.saveForm(dlgForm).subscribe(
         (data: T) => {
           this.model = data;
           if (this.listAll) {
@@ -57,7 +60,7 @@ export class AddDialogComponent<T extends ParentModel, S extends GenericService<
     this.hideDialogEvent.emit(false);
   }
 
-  public onHide(event){
+  public onHide(event) {
     this.hideDialogEvent.emit(false);
   }
 

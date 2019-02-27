@@ -16,8 +16,7 @@ import { MarqueFamilyService } from 'src/app/buisness/services/marque-family.ser
 export class MarqueComponent extends GenericComponent<Marque, MarqueService> {
 
   marqueFamilies: Array<MarqueFamily>;
-  _marqueFamily: MarqueFamily;
-
+  titlePage: string = "Liste des marques";
 
   constructor(marqueService: MarqueService
     , messageService: MessageService

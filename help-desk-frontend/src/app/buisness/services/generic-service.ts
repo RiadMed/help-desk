@@ -1,15 +1,22 @@
-import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { NgForm } from "@angular/forms";
+import { SelectItem } from "primeng/components/common/api";
+import { Observable, Subject } from "rxjs";
+import { tap } from "rxjs/operators";
 import { PathName } from "src/app/helpers/path-name";
 import { ParentModel } from "../models/parent-model";
-import { Observable } from "rxjs";
-import { ItemSelect } from "../models/item-select";
-import { SelectItem } from "primeng/components/common/api";
 
 export abstract class GenericService<T extends ParentModel> {
+
+    private _refreshData = new Subject<void>();
 
     constructor(private httpClient: HttpClient
         , private api_url: string) { }
 
+
+    get refreshData() {
+        return this._refreshData;
+    }
 
     public findAll(): Observable<T[]> {
         return this.httpClient.get<T[]>(
@@ -39,8 +46,24 @@ export abstract class GenericService<T extends ParentModel> {
         }
     }
 
+    public saveForm(model: NgForm) {
+        return this.httpClient.post<T>(this.api_url, model,
+            { headers: new HttpHeaders({ 'Authorization': localStorage.getItem(PathName.TOKEN) }) }
+        ).pipe(
+            tap(() => {
+                this._refreshData.next();
+            })
+        );
+    }
+
     public deleteData(model: T) {
-        return this.httpClient.delete(this.api_url + "/" + model.id, { headers: new HttpHeaders({ 'Authorization': localStorage.getItem(PathName.TOKEN) }) });
+        return this.httpClient.delete(this.api_url + "/" + model.id,
+            { headers: new HttpHeaders({ 'Authorization': localStorage.getItem(PathName.TOKEN) }) }
+        ).pipe(
+            tap(() => {
+                this._refreshData.next();
+            })
+        );;
     }
 
     protected getHttpClient(): HttpClient {

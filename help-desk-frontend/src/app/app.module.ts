@@ -42,6 +42,9 @@ import { HomeComponent } from './components/home/home.component';
 import { AddDialogComponent } from './components/add-dialog/add-dialog.component';
 import { MarqueFamilyComponent } from './components/marque-family/marque-family.component';
 import { AddMarqueFamilyComponent } from './components/marque-family/add-marque-family.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { InfoFormGenericComponent } from './components/generic/info-form-generic/info-form-generic.component';
+import { ListGenericComponent } from './components/generic/list-generic/list-generic.component';
 
 @NgModule({
   declarations: [
@@ -72,13 +75,15 @@ import { AddMarqueFamilyComponent } from './components/marque-family/add-marque-
     HomeComponent,
     AddDialogComponent,
     MarqueFamilyComponent,
-    AddMarqueFamilyComponent
+  AddMarqueFamilyComponent,
+  InfoFormGenericComponent,
+  ListGenericComponent
   ],
   imports: [
     ReactiveFormsModule,
     HttpClientModule,
     BrowserModule,
-    AppRoutingModule, PrimeNGModule,
+    AppRoutingModule, PrimeNGModule, NgSelectModule,
     FormsModule, BrowserAnimationsModule, NgProgressModule, NgxSpinnerModule,
   ],
   providers: [AuthenticationService, AuthGuard, MessageService, ConfirmationService,

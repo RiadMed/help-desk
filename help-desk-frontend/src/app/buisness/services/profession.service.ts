@@ -3,6 +3,7 @@ import { GenericService } from './generic-service';
 import { Profession } from '../models/profession';
 import { HttpClient } from '@angular/common/http';
 import { API_URLS } from 'src/app/helpers/api.url';
+import { FormGroup } from '@angular/forms';
 
 
 @Injectable({
