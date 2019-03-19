@@ -15,6 +15,7 @@ import { OccuredErrorComponent } from './templates/exception/occured-error/occur
 import { StockComponent } from './components/stock/stock.component';
 import { HomeComponent } from './components/home/home.component';
 import { MarqueFamilyComponent } from './components/marque-family/marque-family.component';
+import { ApplicationComponent } from './components/application/application.component';
 
 const routes: Routes = [
   {
@@ -71,6 +72,11 @@ const routes: Routes = [
     path: 'home', component: HomeComponent, canActivate: [AuthGuard]
     ,
     data: { title: 'Home' }
+  },
+  {
+    path: 'configs', component: ApplicationComponent, canActivate: [AuthGuard]
+    ,
+    data: { title: 'Config' }
   },
   {
     path: 'login', component: LoginComponent,

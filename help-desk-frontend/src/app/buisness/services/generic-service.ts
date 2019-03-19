@@ -25,35 +25,42 @@ export abstract class GenericService<T extends ParentModel> {
         )
     }
 
-    public getItemList(items_url: string): Observable<Array<SelectItem>> {
-        return this.httpClient.get<Array<SelectItem>>(items_url + "/items",
-            { headers: new HttpHeaders({ 'Authorization': localStorage.getItem(PathName.TOKEN) }) })
-    }
-
     public findOne(id: number): Observable<T> {
         return this.httpClient.get<T>(
             this.api_url + '/' + id,
-            { headers: new HttpHeaders({ 'Authorization': localStorage.getItem(PathName.TOKEN) }) }
-        )
+            { headers: new HttpHeaders({ 'Authorization': localStorage.getItem(PathName.TOKEN) }) })
     }
 
     public saveData(model: T, editMode: boolean) {
         if (editMode) {
-            return this.httpClient.put<T>(this.api_url + "/" + model.id, model, { headers: new HttpHeaders({ 'Authorization': localStorage.getItem(PathName.TOKEN) }) });
+            return this.httpClient.put<T>(this.api_url + "/" + model.id, model,
+                { headers: new HttpHeaders({ 'Authorization': localStorage.getItem(PathName.TOKEN) }) });
         }
         else {
-            return this.httpClient.post<T>(this.api_url, model, { headers: new HttpHeaders({ 'Authorization': localStorage.getItem(PathName.TOKEN) }) });
+            return this.httpClient.post<T>(this.api_url, model,
+                { headers: new HttpHeaders({ 'Authorization': localStorage.getItem(PathName.TOKEN) }) });
         }
     }
 
-    public saveForm(model: NgForm) {
-        return this.httpClient.post<T>(this.api_url, model,
-            { headers: new HttpHeaders({ 'Authorization': localStorage.getItem(PathName.TOKEN) }) }
-        ).pipe(
-            tap(() => {
-                this._refreshData.next();
-            })
-        );
+    public saveForm(model: NgForm, id: number, editMode: boolean) {
+        if (editMode) {
+            return this.httpClient.put<T>(this.api_url + "/" + id, model,
+                { headers: new HttpHeaders({ 'Authorization': localStorage.getItem(PathName.TOKEN) }) }
+            ).pipe(
+                tap(() => {
+                    this._refreshData.next();
+                })
+            );
+        }
+        else {
+            return this.httpClient.post<T>(this.api_url, model,
+                { headers: new HttpHeaders({ 'Authorization': localStorage.getItem(PathName.TOKEN) }) }
+            ).pipe(
+                tap(() => {
+                    this._refreshData.next();
+                })
+            );
+        }
     }
 
     public deleteData(model: T) {

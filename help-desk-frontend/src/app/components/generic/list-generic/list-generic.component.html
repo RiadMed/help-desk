@@ -1,17 +1,15 @@
-<span style="font-size: 1rem;color: #555;margin-left: 5px;font-weight: 500;padding: 0"><i class="fas fa-th"
-    style="font: #777 !important"></i> - {{title}} :</span>
 <hr />
 <p-table #dt [columns]="columnModel" [value]="data" [paginator]="true" [rows]="10" [totalRecords]="totalRecords"
-  [rowsPerPageOptions]="[10,20,50,100]">
+  [rowsPerPageOptions]="[10,20,50,100]" [dir]="'DISPLAY.RTL' | translate">
 
   <ng-template pTemplate="caption">
     <div class="ui-helper-clearfix">
-      <button pButton type="button" label="Nouveau" icon="pi pi-plus" (click)="addEntity()" class="ui-button-raised"
-        style="float: left;margin-top: -3px;">
+      <button pButton type="button" [label]="'COMMUN.BTN_NEW' | translate" icon="pi pi-plus" (click)="addEntity()"
+        class="ui-button-raised" style="float: left;margin-top: -3px;">
       </button>
     </div>
     <div class="ui-inputgroup filter-ui-table">
-      <input type="text" pInputText placeholder="Search..." size="50" pTooltip="Recherche générique."
+      <input type="text" pInputText placeholder="Search..." size="50" [pTooltip]="'COMMUN.TOOLTIP_SEARCH' | translate"
         tooltipEvent="focus" tooltipPosition="left" (input)="dt.filterGlobal($event.target.value, 'contains')"
         class="form-control input-search">
       <span class="ui-inputgroup-addon input-search-logo"><i class="pi pi-search"></i></span>
@@ -26,8 +24,8 @@
     <tr>
       <th class="id-column-header-style">N°
       </th>
-      <th *ngFor="let col of columnModel" [pSortableColumn]="col.field" [style.width]="col.width">
-        {{col.header}}
+      <th *ngFor="let col of columnModel" [pSortableColumn]="col.field" [style.width]="col.width" translate>
+        {{col.header | translate}}
         <p-sortIcon [field]="col.field"></p-sortIcon>
       </th>
       <th style="width:9em"></th>
@@ -47,9 +45,11 @@
       <td class="action-column-value-style">
 
         <button pButton type="button" icon="pi pi-external-link" class="ui-button-secondary show-btn-style"
-          (click)="showDetail(rowData)" pTooltip="Voir le détail" tooltipPosition="bottom"></button>
+          (click)="showDetail(rowData)" [pTooltip]="'COMMUN.TOOLTIP_SHOW' | translate"
+          tooltipPosition="bottom"></button>
         <button pButton type="button" icon="pi pi-trash" class="ui-button-secondary delete-btn-style"
-          (click)="removeEntity(rowData)" pTooltip="Suprimer la ligne" tooltipPosition="bottom"></button>
+          (click)="removeEntity(rowData)" [pTooltip]="'COMMUN.TOOLTIP_DELETE' | translate"
+          tooltipPosition="bottom"></button>
       </td>
     </tr>
   </ng-template>

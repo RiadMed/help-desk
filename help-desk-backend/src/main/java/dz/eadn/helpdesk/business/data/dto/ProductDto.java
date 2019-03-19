@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class SoftwareDto extends ParentDto<Long> implements Serializable {
+public class ProductDto extends ParentDto<Long> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,19 +22,19 @@ public class SoftwareDto extends ParentDto<Long> implements Serializable {
 
 	@Getter
 	@Setter
-	private Integer amount;
+	private Integer quantity;
 
 	@Getter
 	@Setter
-	private LocalDate acquisitionDate;
+	private LocalDate date;
 
-	@Getter
-	@Setter
-	private LocalDate validateDate;
-	
 	@Getter
 	@Setter
 	private String icon;
+
+	@Getter
+	@Setter
+	private Boolean isSoftware;
 
 	@Getter
 	@Setter

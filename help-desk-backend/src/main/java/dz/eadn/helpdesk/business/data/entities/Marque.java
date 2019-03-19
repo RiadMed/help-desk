@@ -8,6 +8,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+
 import dz.eadn.helpdesk.business.utils.DBSchemaConstants;
 import dz.eadn.helpdesk.commun.Parents;
 import lombok.Getter;
@@ -18,6 +21,7 @@ import lombok.ToString;
 @Setter
 @Entity
 @ToString
+@Audited
 @Table(name = "marque", schema = DBSchemaConstants.APPS_DB_SCHEMA)
 public class Marque extends Parents<Integer> implements Serializable {
 
@@ -39,6 +43,7 @@ public class Marque extends Parents<Integer> implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "marque_family_id")
+	@NotAudited
 	public MarqueFamily getMarqueFamily() {
 		return marqueFamily;
 	}

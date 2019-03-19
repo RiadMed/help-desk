@@ -1,16 +1,22 @@
 <div class="ui-g" [formGroup]="addForm" [ngSwitch]="modelForm.controlType">
-  <div class="ui-g-4 ui-md-3 ui-lg-3">
-    <label [for]="modelForm.column">{{modelForm.label}}</label>
+  <div class="ui-g-4 ui-md-3 ui-lg-3" *ngIf="modelForm.rendred">
+    <label [for]="modelForm.column" translate>{{modelForm.label}}</label>
     <span style="color:red" *ngIf="modelForm.required"> *</span> :
   </div>
-  <div class="ui-g-8 ui-md-8 ui-lg-8">
+  <div class="ui-g-8 ui-md-8 ui-lg-8" *ngIf="modelForm.rendred">
 
-    <input *ngSwitchCase="'text'" [type]="modelForm.controlType" [id]="modelForm.column" [pKeyFilter]="blockSpecial"
-      pInputText autofocus [formControlName]="modelForm.column" class="form-control col-md-11 col-lg-11"
-      [placeholder]="modelForm.column">
+    <input *ngSwitchCase="'text'" [type]="modelForm.controlType" [id]="modelForm.column" pInputText autofocus
+      [formControlName]="modelForm.column" class="form-control col-md-11 col-lg-11" [placeholder]="modelForm.column">
 
-    <ng-select *ngSwitchCase="'select'" [items]="modelForm.options" bindLabel="label" bindValue="id"
+    <ng-select #api *ngSwitchCase="'select'" [items]="modelForm.options" bindLabel="label" bindValue="id"
       [formControlName]="modelForm.column" [id]="modelForm.column">
+      <ng-template ng-header-tmp>
+        <!-- <button class="btn btn-sm btn-secondary">Select all</button>
+        <button class="btn btn-sm btn-secondary">Unselect all</button>
+        <hr/> -->
+        <input style="width: 100%; line-height: 24px;border: none;border-bottom: 1px solid #d0d0d0" type="text"
+          (input)="api.filter($event.target.value)" />
+      </ng-template>
     </ng-select>
 
     <p-calendar *ngSwitchCase="'date'" [id]="modelForm.column" [showIcon]="true" [formControlName]="modelForm.column"

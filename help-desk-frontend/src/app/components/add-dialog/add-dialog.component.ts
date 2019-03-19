@@ -41,7 +41,7 @@ export class AddDialogComponent<T extends ParentModel, S extends GenericService<
     let _model = _datasource.find(x => x.label.toLowerCase() == this.model.label.toLowerCase());
     this.existLine = _model != null;
     if (!this.existLine) {
-      this.service.saveForm(dlgForm).subscribe(
+      this.service.saveForm(dlgForm, null, false).subscribe(
         (data: T) => {
           this.model = data;
           if (this.listAll) {

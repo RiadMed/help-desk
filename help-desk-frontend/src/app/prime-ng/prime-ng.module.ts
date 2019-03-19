@@ -27,6 +27,7 @@ import * as PrimeToast from 'primeng/toast';
     PrimeNG.DialogModule,
     PrimeNG.PaginatorModule,
     PrimeNG.ChartModule,
+    PrimeNG.FileUploadModule,
     PrimeTable.TableModule,
     PrimeToast.ToastModule
   ],
@@ -50,6 +51,7 @@ import * as PrimeToast from 'primeng/toast';
     PrimeNG.DialogModule,
     PrimeNG.PaginatorModule,
     PrimeNG.ChartModule,
+    PrimeNG.FileUploadModule,
     PrimeTable.TableModule,
     PrimeToast.ToastModule
   ]

@@ -1,0 +1,55 @@
+{
+    "HOME": {
+        "TITLE": " جدول المتابعة "
+    },
+    "DISPLAY": {
+        "RTL": " RTL "
+    },
+    "COMMUN": {
+        "ID": " تعريف ",
+        "LABEL": " الإسم ",
+        "BTN_NEW": " جديد ",
+        "BTN_VALIDATE": " تثبيت ",
+        "BTN_CLOSE": " غلق ",
+        "BTN_CANCEL": " إلغاء ",
+        "BTN_DELETE": " حذف ",
+        "BTN_MODIFIER": " تحديث ",
+        "TOOLTIP_SEARCH": ".بحث عام",
+        "TOOLTIP_SHOW": ".إظهار التفاصيل",
+        "TOOLTIP_DELETE": "احذف الخط",
+        "PLACEHOLDER_SEARCH": "...بحث",
+        "UPLOAD_IMG_LABEL":"...إختر صورة"
+    },
+    "MENU": {
+        "AFFECTATION_KEY": "تكليف",
+        "STOCK_KEY": "مخزون",
+        "PARTENER_KEY": "الموظفون",
+        "HARD_KEY": "المعدات",
+        "SOFT_KEY": "التطبيقات",
+        "PROFESSION_KEY": "المهنة",
+        "MARQUE_KEY": "العلامة",
+        "MARQUE_FAMILY_KEY": "العاءلات",
+        "SETTING_KEY": "Configuration"
+    },
+    "MARQUE": {
+        "TAB_TITLE": " العلامة ",
+        "TITLE": " قائمة العلمات ",
+        "FORM_LABEL": " الإسم ",
+        "FORM_FAMILY_MARQUE": " العائلة ",
+        "COLUMN_LABEL": " الإسم ",
+        "COLUMN_FAMILY_MARQUE": " العائلة "
+    },
+    "CONFIG": {
+        "TITLE_PAGE_KEY": " لوحة التحكم ",
+        "LABEL_KEY": " إسم المشروع ",
+        "TITLE_KEY": " عنوان ",
+        "DEFAULT_LANG_KEY": " لغة ",
+        "FOOTER_KEY": " فوتر ",
+        "VERSION_KEY": " فرسيون ",
+        "COPYRIGHT_KEY": " كوبيرايت ",
+        "DESCRIPTION_KEY": " ملخص ",
+        "MAX_USER_KEY": " عدد المستخدمين ",
+        "LOGO_KEY": " صورة ",
+        "LOGIN_IMG_KEY": " الصورة الأولى "
+    }
+}

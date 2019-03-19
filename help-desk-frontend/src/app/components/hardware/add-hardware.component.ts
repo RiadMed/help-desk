@@ -7,12 +7,13 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { Hardware } from "src/app/buisness/models/hardware";
 import { HardwareService } from "src/app/buisness/services/hardware.service";
 import { FormGroup } from "@angular/forms";
+import { Product } from "src/app/buisness/models/Product";
 
 @Component({
     selector: 'add-hardware',
     templateUrl: './add-hardware.component.html'
 })
-export class AddHardwareComponent extends AddGenericComponent<Hardware, HardwareService> {
+export class AddHardwareComponent extends AddGenericComponent<Product, HardwareService> {
     
     @Input('items') marqueItems: Array<Marque>;
     @Input() marque: Marque;
@@ -25,12 +26,12 @@ export class AddHardwareComponent extends AddGenericComponent<Hardware, Hardware
 
     protected afterInit(): void {
         if (this.editModel) {
-            this.model.acquisitionDate = new Date(this.model.acquisitionDate);
+            this.model.date = new Date(this.model.date);
             if (this.marqueItems)
                 this.marque = this.marqueItems.find(x => x.id == this.model.marqueId);
         } else {
-            this.model = new Hardware();
-            this.model.acquisitionDate = new Date();
+            this.model = new Product();
+            this.model.date = new Date();
             this.marque = new Marque();
         }
     }
@@ -51,8 +52,8 @@ export class AddHardwareComponent extends AddGenericComponent<Hardware, Hardware
     }
 
     protected afterAdd(): void {
-        this.model = new Hardware();
-        this.model.acquisitionDate = new Date();
+        this.model = new Product();
+        this.model.date = new Date();
         this.marque = new Marque();
     }
 

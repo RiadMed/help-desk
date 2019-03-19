@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -29,7 +30,7 @@ public class AppUser implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	protected Long id;
-	
+
 	@Column(name = "username", unique = true)
 	@NotNull
 	private String username;
@@ -62,11 +63,13 @@ public class AppUser implements Serializable {
 	@Column(name = "email")
 	private String email;
 
+	@Lob
+	@Column(name = "profil_image")
+	private byte[] profilImage;
+
 	private List<Roles> appRolesList = new ArrayList<>();
 
 	private List<Menu> menusList = new ArrayList<>();
-
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,7 +77,7 @@ public class AppUser implements Serializable {
 	public Long getId() {
 		return this.id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -169,6 +172,14 @@ public class AppUser implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public byte[] getProfilImage() {
+		return profilImage;
+	}
+
+	public void setProfilImage(byte[] profilImage) {
+		this.profilImage = profilImage;
 	}
 
 	@ManyToMany(fetch = FetchType.EAGER)

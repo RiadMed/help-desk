@@ -1,0 +1,125 @@
+<div class="p-sm-12 p-md-12 p-lg-12 p-xl-12 Elevation-2dp">
+
+  <p-card>
+    <form [formGroup]="settingsForm" (ngSubmit)="saveData(settingsForm.value)">
+      <i class="fas fa-cog ui-button-secondary back-btn-style"></i>
+      <span class="card-title-style">
+        {{ 'CONFIG.TITLE_PAGE_KEY' | translate}} : </span>
+      <hr />
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-rtl ui-fluid" style="margin: 10px 10px"
+        [dir]="'DISPLAY.RTL' | translate">
+        <div class="ui-g">
+          <div class="ui-g-4 ui-md-3 ui-lg-3">
+            <label for="_label">{{ 'CONFIG.LABEL_KEY' | translate }}</label>
+            <span style="color:red"> *</span> :
+          </div>
+          <div class="ui-g-8 ui-md-8 ui-lg-8">
+            <input type="text" id="_label" required pInputText formControlName="label" autofocus
+              class="form-control col-md-11 col-lg-11" [pKeyFilter]="blockSpecial"
+              [placeholder]="'CONFIG.LABEL_KEY' | translate">
+          </div>
+
+          <div class="ui-g-4 ui-md-3 ui-lg-3">
+            <label for="_title">{{ 'CONFIG.TITLE_KEY' | translate }}</label>
+            <span style="color:red"> *</span> :
+          </div>
+          <div class="ui-g-8 ui-md-8 ui-lg-8">
+            <input type="text" id="_title" pInputText formControlName="title" class="form-control col-md-11 col-lg-11"
+              [pKeyFilter]="blockSpecial" [placeholder]="'CONFIG.TITLE_KEY' | translate">
+          </div>
+
+          <div class="ui-g-4 ui-md-3 ui-lg-3">
+            <label for="_footer">{{ 'CONFIG.FOOTER_KEY' | translate }}</label>
+            <span style="color:red"> *</span> :
+          </div>
+          <div class="ui-g-8 ui-md-8 ui-lg-8">
+            <input type="text" id="_footer" pInputText formControlName="footer" class="form-control col-md-11 col-lg-11"
+              [placeholder]="'CONFIG.FOOTER_KEY' | translate">
+          </div>
+
+          <div class="ui-g-4 ui-md-3 ui-lg-3">
+            <label for="_version">{{ 'CONFIG.VERSION_KEY' | translate }}</label>
+            <span style="color:red"> *</span> :
+          </div>
+          <div class="ui-g-8 ui-md-8 ui-lg-8">
+            <input type="text" id="_version" pInputText formControlName="version"
+              class="form-control col-md-11 col-lg-11" [placeholder]="'CONFIG.VERSION_KEY' | translate">
+          </div>
+
+          <div class="ui-g-4 ui-md-3 ui-lg-3">
+            <label for="_copyright">{{ 'CONFIG.COPYRIGHT_KEY' | translate }}</label>
+            <span style="color:red"> *</span> :
+          </div>
+          <div class="ui-g-8 ui-md-8 ui-lg-8">
+            <input type="text" id="_copyright" pInputText formControlName="copyright"
+              class="form-control col-md-11 col-lg-11" [placeholder]="'CONFIG.COPYRIGHT_KEY' | translate">
+          </div>
+
+          <div class="ui-g-4 ui-md-3 ui-lg-3">
+            <label for="_description">{{ 'CONFIG.DESCRIPTION_KEY' | translate }}</label>
+            <span style="color:red"> *</span> :
+          </div>
+          <div class="ui-g-8 ui-md-8 ui-lg-8">
+            <input type="text" id="_description" pInputText formControlName="description"
+              class="form-control col-md-11 col-lg-11" [pKeyFilter]="blockSpecial"
+              [placeholder]="'CONFIG.DESCRIPTION_KEY' | translate">
+          </div>
+
+          <div class="ui-g-4 ui-md-3 ui-lg-3">
+            <label for="_defaultLang">{{ 'CONFIG.DEFAULT_LANG_KEY' | translate }}</label>
+            <span style="color:red"> *</span> :
+          </div>
+          <div class="ui-g-8 ui-md-8 ui-lg-8">
+            <ng-select #api [items]="langs" bindLabel="label" bindValue="value" formControlName="defaultLang"
+              id="_defaultLang"></ng-select>
+          </div>
+
+
+
+          <div class="ui-g-4 ui-md-3 ui-lg-3">
+            <label for="_description">{{ 'CONFIG.LOGO_KEY' | translate }}</label>
+            <span style="color:red"> *</span> :
+          </div>
+          <div class="ui-g-8 ui-md-8 ui-lg-8">
+              <label for="_logo" class="label-file"><i class="pi pi-plus"></i> {{ 'COMMUN.UPLOAD_IMG_LABEL' | translate }} </label>
+              <input type="file" id="_logo" (change)="onFileChange($event)" name="logo" 
+              class="input-file" style="width: 46%;" accept="image/*"> 
+              
+            <img [src]="logoUrl" width="40%" height="80%" *ngIf="logoUrl; else noLogo "
+              style="padding-left: 45px;border-left: 1px solid #d0d0d0;margin-left: 15px" />
+            <ng-template #noLogo>
+              <img src="../../assets/images/no-image.png" height="50px"
+                style="padding-left: 45px;border-left: 1px solid #d0d0d0;margin-left: 15px">
+            </ng-template>
+          </div>
+
+          <div class="ui-g-4 ui-md-3 ui-lg-3">
+            <label for="_description">{{ 'CONFIG.LOGIN_IMG_KEY' | translate }}</label>
+            <span style="color:red"> *</span> :
+          </div>
+          <div class="ui-g-8 ui-md-8 ui-lg-8">
+            <label for="_loginImg" class="label-file"><i class="pi pi-plus"></i> {{ 'COMMUN.UPLOAD_IMG_LABEL' | translate }} </label>
+            <input type="file" id="_loginImg" (change)="onLoginImgChange($event)" name="loginImg" 
+            class="input-file" style="width: 46%;" accept="image/*"> 
+
+            <img *ngIf="loginImgUrl; else noImages" [src]="loginImgUrl" width="40%" height="80%"
+              style="padding-left: 45px;border-left: 1px solid #d0d0d0;margin-left: 15px" />
+            <ng-template #noImages>
+              <img src="../../assets/images/no-image.png" height="50px"
+                style="padding-left: 45px;border-left: 1px solid #d0d0d0;margin-left: 15px">
+            </ng-template>
+          </div>
+
+        </div>
+      </div>
+      <hr />
+      <p-footer>
+        <button pButton type="submit" icon="pi pi-check" [label]="'COMMUN.BTN_VALIDATE' | translate"
+          class="ui-button-raised"></button>
+        <p-button [label]="'COMMUN.BTN_CANCEL' | translate" icon="pi pi-times" (click)="cancel()"
+          class="ui-button-raised"></p-button>
+        <i class="pi pi-ellipsis-v" style="color: #999;margin-right: 5px"></i>
+      </p-footer>
+    </form>
+  </p-card>
+</div>

@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { GenericComponent } from '../generic-component';
-import { MarqueFamily } from 'src/app/buisness/models/marque-family';
-import { MarqueFamilyService } from 'src/app/buisness/services/marque-family.service';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ExcelService } from 'src/app/buisness/services/excel.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ConfirmationService, MessageService } from 'primeng/primeng';
+import { MarqueFamily } from 'src/app/buisness/models/marque-family';
+import { ExcelService } from 'src/app/buisness/services/excel.service';
+import { MarqueFamilyService } from 'src/app/buisness/services/marque-family.service';
+import { GenericComponent } from '../generic-component';
 
 @Component({
   selector: 'app-marque-family',

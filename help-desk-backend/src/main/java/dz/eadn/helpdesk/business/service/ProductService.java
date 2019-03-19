@@ -1,9 +1,13 @@
 package dz.eadn.helpdesk.business.service;
 
-import dz.eadn.helpdesk.business.data.dto.SoftwareDto;
-import dz.eadn.helpdesk.business.data.entities.Software;
+import java.util.List;
+
+import dz.eadn.helpdesk.business.data.dto.ProductDto;
+import dz.eadn.helpdesk.business.data.entities.Product;
 import dz.eadn.helpdesk.commun.GenericService;
 
-public interface SoftwareService extends GenericService<Software, SoftwareDto, Long> {
+public interface ProductService extends GenericService<Product, ProductDto, Long> {
 
+	public List<ProductDto> findByIsSoftware(Boolean isSoftware);
+	
 }

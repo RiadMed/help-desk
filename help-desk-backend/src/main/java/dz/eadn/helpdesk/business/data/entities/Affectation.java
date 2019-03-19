@@ -2,11 +2,14 @@ package dz.eadn.helpdesk.business.data.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import dz.eadn.helpdesk.business.utils.DBSchemaConstants;
@@ -33,34 +36,21 @@ public class Affectation extends Parents<Long> implements Serializable {
 	@Column(name = "date")
 	private LocalDate date;
 
-	@Getter
-	@Setter
-	@Column(name = "active")
-	private Boolean active;
-
-	@Getter
-	@Setter
-	@Column(name = "validation_date")
-	private LocalDate validationDate;
-
-	@Getter
-	@Setter
-	@Column(name = "key")
-	private String key;
-
-	@Getter
-	@Setter
-	@Column(name = "serial_number")
-	private String serialNumber;
+	private List<AffectationDetails> affectationDetailsList = new ArrayList<>();
 
 	private Partener partener;
 
-	private Software software;
-
-	private Hardware hardware;
-
 	public Affectation() {
 		super();
+	}
+
+	@OneToMany(mappedBy = "affectation")
+	public List<AffectationDetails> getAffectationDetailsList() {
+		return affectationDetailsList;
+	}
+
+	public void setAffectationDetailsList(List<AffectationDetails> affectationDetailsList) {
+		this.affectationDetailsList = affectationDetailsList;
 	}
 
 	@ManyToOne
@@ -73,33 +63,17 @@ public class Affectation extends Parents<Long> implements Serializable {
 		this.partener = partener;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "software_id")
-	public Software getSoftware() {
-		return software;
-	}
-
-	public void setSoftware(Software software) {
-		this.software = software;
-	}
-
-	@ManyToOne
-	@JoinColumn(name = "hardware_id")
-	public Hardware getHardware() {
-		return hardware;
-	}
-
-	public void setHardware(Hardware hardware) {
-		this.hardware = hardware;
+	@Override
+	public String getLabel() {
+		return this.label;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((active == null) ? 0 : active.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + ((hardware == null) ? 0 : hardware.hashCode());
+		result = prime * result + ((label == null) ? 0 : label.hashCode());
 		return result;
 	}
 
@@ -112,27 +86,17 @@ public class Affectation extends Parents<Long> implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Affectation other = (Affectation) obj;
-		if (active == null) {
-			if (other.active != null)
-				return false;
-		} else if (!active.equals(other.active))
-			return false;
 		if (date == null) {
 			if (other.date != null)
 				return false;
 		} else if (!date.equals(other.date))
 			return false;
-		if (hardware == null) {
-			if (other.hardware != null)
+		if (label == null) {
+			if (other.label != null)
 				return false;
-		} else if (!hardware.equals(other.hardware))
+		} else if (!label.equals(other.label))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String getLabel() {
-		return this.label;
 	}
 
 }

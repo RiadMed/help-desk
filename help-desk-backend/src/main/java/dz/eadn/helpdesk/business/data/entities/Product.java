@@ -2,16 +2,11 @@ package dz.eadn.helpdesk.business.data.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import dz.eadn.helpdesk.business.utils.DBSchemaConstants;
@@ -24,8 +19,8 @@ import lombok.ToString;
 @Entity
 @ToString
 @AllArgsConstructor
-@Table(name = "software", schema = DBSchemaConstants.APPS_DB_SCHEMA)
-public class Software extends Parents<Long> implements Serializable {
+@Table(name = "product", schema = DBSchemaConstants.APPS_DB_SCHEMA)
+public class Product extends Parents<Long> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,38 +31,28 @@ public class Software extends Parents<Long> implements Serializable {
 
 	@Getter
 	@Setter
-	@Column(name = "amount")
-	private Integer amount;
+	@Column(name = "quantity")
+	private Integer quantity;
 
 	@Getter
 	@Setter
-	@Column(name = "acquisition_date")
-	private LocalDate acquisitionDate;
+	@Column(name = "date")
+	private LocalDate date;
 
-	@Getter
-	@Setter
-	@Column(name = "validate_date")
-	private LocalDate validateDate;
-	
 	@Getter
 	@Setter
 	@Column(name = "icon")
 	private String icon;
 
+	@Getter
+	@Setter
+	@Column(name = "is_software")
+	private Boolean isSoftware;
 
 	private Marque marque;
-	private List<Affectation> affectations = new ArrayList<>();
 
-	public Software() {
+	public Product() {
 		super();
-	}
-
-	public Software(String label, Integer amount, LocalDate acquisitionDate, LocalDate validateDate, String key) {
-		super();
-		this.label = label;
-		this.amount = amount;
-		this.acquisitionDate = acquisitionDate;
-		this.validateDate = validateDate;
 	}
 
 	@ManyToOne
@@ -80,23 +65,15 @@ public class Software extends Parents<Long> implements Serializable {
 		this.marque = marque;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "software", cascade = CascadeType.ALL)
-	public List<Affectation> getAffectations() {
-		return affectations;
-	}
-
-	public void setAffectations(List<Affectation> affectations) {
-		this.affectations = affectations;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((acquisitionDate == null) ? 0 : acquisitionDate.hashCode());
-		result = prime * result + ((amount == null) ? 0 : amount.hashCode());
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + ((icon == null) ? 0 : icon.hashCode());
+		result = prime * result + ((isSoftware == null) ? 0 : isSoftware.hashCode());
 		result = prime * result + ((label == null) ? 0 : label.hashCode());
-		result = prime * result + ((validateDate == null) ? 0 : validateDate.hashCode());
+		result = prime * result + ((quantity == null) ? 0 : quantity.hashCode());
 		return result;
 	}
 
@@ -108,28 +85,42 @@ public class Software extends Parents<Long> implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Software other = (Software) obj;
-		if (acquisitionDate == null) {
-			if (other.acquisitionDate != null)
+		Product other = (Product) obj;
+		if (date == null) {
+			if (other.date != null)
 				return false;
-		} else if (!acquisitionDate.equals(other.acquisitionDate))
+		} else if (!date.equals(other.date))
 			return false;
-		if (amount == null) {
-			if (other.amount != null)
+		if (icon == null) {
+			if (other.icon != null)
 				return false;
-		} else if (!amount.equals(other.amount))
+		} else if (!icon.equals(other.icon))
+			return false;
+		if (isSoftware == null) {
+			if (other.isSoftware != null)
+				return false;
+		} else if (!isSoftware.equals(other.isSoftware))
 			return false;
 		if (label == null) {
 			if (other.label != null)
 				return false;
 		} else if (!label.equals(other.label))
 			return false;
-		if (validateDate == null) {
-			if (other.validateDate != null)
+		if (quantity == null) {
+			if (other.quantity != null)
 				return false;
-		} else if (!validateDate.equals(other.validateDate))
+		} else if (!quantity.equals(other.quantity))
 			return false;
 		return true;
+	}
+
+	public Product(String label, Integer quantity, LocalDate date, String icon, Boolean isSoftware) {
+		super();
+		this.label = label;
+		this.quantity = quantity;
+		this.date = date;
+		this.icon = icon;
+		this.isSoftware = isSoftware;
 	}
 
 }

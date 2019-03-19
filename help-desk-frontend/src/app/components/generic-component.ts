@@ -6,6 +6,7 @@ import { ParentModel } from "../buisness/models/parent-model";
 import { ExcelService } from "../buisness/services/excel.service";
 import { GenericService } from "../buisness/services/generic-service";
 import { AppUtils } from "../helpers/app-utils";
+import { ApplicationService } from "../buisness/services/application.service";
 
 export abstract class GenericComponent<T extends ParentModel, S extends GenericService<T>> implements OnInit {
 
@@ -14,7 +15,8 @@ export abstract class GenericComponent<T extends ParentModel, S extends GenericS
         , private messageService: MessageService
         , private ngxSpinnerService: NgxSpinnerService
         , private router: Router
-        , private excelService: ExcelService) { }
+        , private excelService: ExcelService) {
+    }
 
     protected selected: T;
     protected listAll: Array<T>;
@@ -27,6 +29,7 @@ export abstract class GenericComponent<T extends ParentModel, S extends GenericS
     protected loadDataOnInit: boolean;
 
     protected appUtils: AppUtils;
+    protected display: string;
 
     ngOnInit(): void {
         this.loadDataOnInit = true;
@@ -37,9 +40,9 @@ export abstract class GenericComponent<T extends ParentModel, S extends GenericS
         this.columns = this.loadColumns();
         this.listAll = new Array();
         this.afterInit();
-        this.service.refreshData.subscribe(()=>{
+        this.service.refreshData.subscribe(() => {
             if (this.loadDataOnInit)
-            this.findAll();
+                this.findAll();
         })
         if (this.loadDataOnInit)
             this.findAll();

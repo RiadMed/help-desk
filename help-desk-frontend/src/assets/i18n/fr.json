@@ -1,0 +1,55 @@
+{
+  "HOME": {
+    "TITLE": " Tableau de board "
+  },
+  "DISPLAY": {
+    "RTL": " TRL "
+  },
+  "COMMUN": {
+    "ID": " ID ",
+    "LABEL": " Libellé ",
+    "BTN_NEW": " Nouveau ",
+    "BTN_VALIDATE": " Valider ",
+    "BTN_CLOSE": " Fermer ",
+    "BTN_CANCEL": " Annuler ",
+    "BTN_DELETE": "Suprimer",
+    "BTN_MODIFIER": "Modifier",
+    "TOOLTIP_SEARCH": "Recherche générique.",
+    "TOOLTIP_SHOW": "Voir le détail.",
+    "TOOLTIP_DELETE": "Suprimer la ligne.",
+    "PLACEHOLDER_SEARCH": "Recherche...",
+    "UPLOAD_IMG_LABEL":"Choisir une image..."
+  },
+  "MENU": {
+    "AFFECTATION_KEY": "Affectation",
+    "STOCK_KEY": "Stock",
+    "PARTENER_KEY": "Personnel",
+    "HARD_KEY": "Matériel",
+    "SOFT_KEY": "Logiciel",
+    "PROFESSION_KEY": "Profession",
+    "MARQUE_KEY": "Marque",
+    "MARQUE_FAMILY_KEY": "Famille de marque",
+    "SETTING_KEY": "Configuration"
+  },
+  "MARQUE": {
+    "TAB_TITLE": " Marques ",
+    "TITLE": " Liste des marques ",
+    "FORM_LABEL": " Libellé ",
+    "FORM_FAMILY_MARQUE": " Famille de marque ",
+    "COLUMN_LABEL": " Libellé ",
+    "COLUMN_FAMILY_MARQUE": " Famille de marque "
+  },
+  "CONFIG": {
+    "TITLE_PAGE_KEY": " Application config ",
+    "LABEL_KEY": " Nom du projet ",
+    "TITLE_KEY": " Titre ",
+    "DEFAULT_LANG_KEY": " Langue ",
+    "FOOTER_KEY": " Footer texte ",
+    "VERSION_KEY": " Version ",
+    "COPYRIGHT_KEY": " Copyright ",
+    "DESCRIPTION_KEY": " Description ",
+    "MAX_USER_KEY": " Nombre d'utilisateur ",
+    "LOGO_KEY": " Logo ",
+    "LOGIN_IMG_KEY": " Login image "
+  }
+}

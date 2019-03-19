@@ -12,6 +12,7 @@ export abstract class AddGenericComponent<T extends ParentModel, S extends Gener
     @Input() addModel: boolean;
     @Input('datasource') listAll: T[];
     @Input('appModel') model: T;
+    @Input() displayRtl: string;
 
     @Output() showEvent = new EventEmitter();
     @Output() pushDataEvent = new EventEmitter();
@@ -77,7 +78,7 @@ export abstract class AddGenericComponent<T extends ParentModel, S extends Gener
     public saveDataForm(modelForm: NgForm) {
         this.beforSave();
         let _datasource = [...this.listAll];
-        this.service.saveForm(modelForm).subscribe(
+        this.service.saveForm(modelForm, this.model.id, this.editModel).subscribe(
             (data: T) => {
                 let model = data;
                 if (this.listAll) {

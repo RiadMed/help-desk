@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ParentModel } from 'src/app/buisness/models/parent-model';
 import { ModelColumn } from 'src/app/buisness/models/model-column';
+import { ApplicationService } from 'src/app/buisness/services/application.service';
 
 @Component({
   selector: 'app-list-generic',
@@ -16,7 +17,7 @@ export class ListGenericComponent<T extends ParentModel> {
   @Output() clickShow = new EventEmitter<T>();
   @Output() clickDelete = new EventEmitter<T>();
   @Output() clickExportExcel = new EventEmitter<void>();
-
+  @Input() display: string;
 
   public addEntity() {
     this.clickAdd.emit();

@@ -673,3 +673,47 @@ body .ui-table .ui-sortable-column.ui-state-highlight {
 body .ui-message{
     width: 92%;
 }
+
+body a {
+    color: #00425C;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.file-field .btn {
+    float: left;
+}
+
+.waves-effect {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+.float-left {
+    float: left!important;
+}
+
+.label-file {
+    cursor: pointer;
+    background: #009e99;
+    padding: 5px;
+    padding-right: 10px;
+    border: 1px solid #009e99;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 2px;
+    box-shadow: 0 1px 2.5px 0 rgba(0, 0, 0, 0.26), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+}
+.label-file:hover {
+    color: #fff;
+    background: #00425C;
+    border-color: #00425C;
+}
+.input-file {
+    display: none;
+}

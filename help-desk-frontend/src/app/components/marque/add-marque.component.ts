@@ -33,19 +33,22 @@ export class AddMarqueComponent extends AddGenericComponent<Marque, MarqueServic
 
     protected loadFormModels(): any[] {
         return [
-            new ModelForm("label", "Libellé", true, "text", false, null, false, "Minimum 2 caractère."),
-            new ModelForm("marqueFamilyId", "Famille de marque", true, "select", false, this.marqueFamilyItems, true, "Veuillez sélectionner la famille de marque.")
+            new ModelForm("id", "COMMUN.ID", true, "text", true, false, null, false, "Minimum 2 caractère."),
+            new ModelForm("label", "COMMUN.LABEL", true, "text", false, true, null, false, "Minimum 2 caractère."),
+            new ModelForm("marqueFamilyId", "MARQUE.FORM_FAMILY_MARQUE", true, "select", false, true, this.marqueFamilyItems, true, "Veuillez sélectionner la famille de marque.")
         ]
     }
 
     protected initFormGroup(): FormGroup {
         return this.formBuilder.group({
+            'id': new FormControl(null),
             'label': new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
             'marqueFamilyId': new FormControl('', Validators.required)
         });
     }
     protected loadFormGroup(): FormGroup {
         return new FormGroup({
+            id: new FormControl(this.model.id),
             label: new FormControl(this.model.label, Validators.compose([Validators.required, Validators.minLength(2)])),
             marqueFamilyId: new FormControl(this.model.marqueFamilyId, Validators.required)
         });
@@ -63,13 +66,11 @@ export class AddMarqueComponent extends AddGenericComponent<Marque, MarqueServic
 
     showDialog() {
         this.dlgGroups = [
-            new ModelForm("label", "Libellé", true, "text", false, null, false, "Minimum 2 caractère.")
+            new ModelForm("label", "Libellé", true, "text", false, true, null, false, "Minimum 2 caractère.")
         ]
-
         this.dlgFormGroup = this.formBuilder.group({
             'label': new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
         });
-
         this.display = true;
     }
 }

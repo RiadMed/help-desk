@@ -1,6 +1,3 @@
-import { Partener } from "./partener";
-import { Software } from "./software";
-import { Hardware } from "./hardware";
 import { ParentModel } from "./parent-model";
 
 export class Affectation extends ParentModel {

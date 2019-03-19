@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AffectationService } from 'src/app/buisness/services/affectation.service';
 import { Affectation } from 'src/app/buisness/models/affectation';
 import { SoftwareService } from 'src/app/buisness/services/software.service';
-import { Software } from 'src/app/buisness/models/software';
+import { Product } from 'src/app/buisness/models/Product';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +11,7 @@ import { Software } from 'src/app/buisness/models/software';
 export class HomeComponent implements OnInit {
 
   listAll: Array<Affectation>;
-  listSoftAll: Array<Software>;
+  listSoftAll: Array<Product>;
   totalSoft: number;
 
   constructor(private affectationService: AffectationService

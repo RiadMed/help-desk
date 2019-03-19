@@ -1,13 +1,10 @@
 import { Component } from "@angular/core";
+import { FormGroup } from "@angular/forms";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from "primeng/components/common/api";
-import { Menu } from "src/app/buisness/models/menu";
-import { Software } from "src/app/buisness/models/software";
-import { SoftwareService } from "src/app/buisness/services/software.service";
-import { AddGenericComponent } from "../add-generic-component";
 import { Stock } from "src/app/buisness/models/stock";
 import { StockService } from "src/app/buisness/services/stock.service";
-import { FormGroup } from "@angular/forms";
+import { AddGenericComponent } from "../add-generic-component";
 
 @Component({
     selector: 'add-stock',

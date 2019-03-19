@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/components/common/api';
 import { Router } from '@angular/router';
-import { GenericComponent } from '../generic-component';
-import { MarqueService } from 'src/app/buisness/services/marque.service';
-import { Marque } from 'src/app/buisness/models/Marque';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ExcelService } from 'src/app/buisness/services/excel.service';
+import { ConfirmationService, MessageService } from 'primeng/components/common/api';
+import { Marque } from 'src/app/buisness/models/Marque';
 import { MarqueFamily } from 'src/app/buisness/models/marque-family';
+import { ExcelService } from 'src/app/buisness/services/excel.service';
 import { MarqueFamilyService } from 'src/app/buisness/services/marque-family.service';
+import { MarqueService } from 'src/app/buisness/services/marque.service';
+import { GenericComponent } from '../generic-component';
 
 @Component({
   selector: 'app-marque',
@@ -38,8 +38,8 @@ export class MarqueComponent extends GenericComponent<Marque, MarqueService> {
 
   protected loadColumns(): any[] {
     return [
-      { field: 'label', header: 'Libellé', pipe: 'uppercase' },
-      { field: 'marqueFamilyLabel', header: 'Famille', pipe: 'uppercase' }
+      { field: 'label', header: 'MARQUE.COLUMN_LABEL', pipe: 'uppercase' },
+      { field: 'marqueFamilyLabel', header: 'MARQUE.COLUMN_FAMILY_MARQUE', pipe: 'uppercase' }
     ];
   }
 

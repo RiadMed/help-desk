@@ -6,39 +6,52 @@ import java.time.LocalDate;
 import dz.eadn.helpdesk.commun.ParentDto;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-@ToString
-public class HardwareDto extends ParentDto<Long> implements Serializable {
+public class AffectationDetailsDto  extends ParentDto<Long> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	
 	@Setter
 	private String label;
 
 	@Getter
 	@Setter
-	private Integer amount;
+	private LocalDate date;
 
 	@Getter
 	@Setter
-	private LocalDate acquisitionDate;
+	private Boolean active;
+	
+	@Getter
+	@Setter
+	private String key;
 
 	@Getter
 	@Setter
-	private String icon;
+	private String serialNumber;
+	
+	@Getter
+	@Setter
+	private LocalDate validationDate;
+	
+	@Getter
+	@Setter
+	private Long productId;
 
 	@Getter
 	@Setter
-	private Integer marqueId;
-
+	private String productLabel;
+	
 	@Getter
 	@Setter
-	private String marqueLabel;
+	private Integer productQuantity;
 
 	@Override
 	public String getLabel() {
 		return label;
 	}
+
+
 
 }

@@ -8,7 +8,7 @@ import { AffectationService } from "src/app/buisness/services/affectation.servic
 import { PartenerService } from "src/app/buisness/services/partener.service";
 import { AddGenericComponent } from "../add-generic-component";
 import { HardwareService } from "src/app/buisness/services/hardware.service";
-import { Software } from "src/app/buisness/models/software";
+import { Product } from "src/app/buisness/models/Product";
 import { SoftwareService } from "src/app/buisness/services/software.service";
 import { FormGroup } from "@angular/forms";
 
@@ -23,8 +23,8 @@ export class AddAffectationComponent extends AddGenericComponent<Affectation, Af
     @Input() partener: Partener;
     @Input('itemsHardware') hardwareItems: Array<Hardware>;
     @Input() hardware: Hardware;
-    @Input('itemsSoftware') softwareItems: Array<Software>;
-    @Input() software: Software;
+    @Input('itemsSoftware') softwareItems: Array<Product>;
+    @Input() software: Product;
     hasHardware: boolean;
     hasSoftware: boolean;
 
@@ -71,7 +71,7 @@ export class AddAffectationComponent extends AddGenericComponent<Affectation, Af
         if (this.hasSoftware) {
             this.model.softwareId = this.software.id;
             this.model.softwareLabel = this.software.label;
-            this.model.softwareAmount = this.software.amount - 1;
+            this.model.softwareAmount = this.software.quantity - 1;
         }
         if (this.hasHardware) {
             this.model.hardwareId = this.hardware.id;
@@ -121,7 +121,7 @@ export class AddAffectationComponent extends AddGenericComponent<Affectation, Af
         this.hasSoftware = false;
         this.hasHardware = false;
         this.hardware = new Hardware();
-        this.software = new Software();
+        this.software = new Product();
         this.partener = new Partener();
     }
 

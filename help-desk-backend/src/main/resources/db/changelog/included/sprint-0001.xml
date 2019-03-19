@@ -41,7 +41,7 @@
 			<column name="label" type="VARCHAR(100)" />
 			<column name="last_name" type="VARCHAR(100)" />
 			<column name="profession_id" type="integer">
-				<constraints foreignKeyName="hardware_profession_fk"
+				<constraints foreignKeyName="partener_profession_fk"
 					references="apps.profession(id)" nullable="false" />
 			</column>
 		</createTable>
@@ -56,48 +56,24 @@
 			<column name="last_name" type="varchar(100)" />
 		</createIndex>
 
-		<createTable tableName="hardware" schemaName="apps">
+		<createTable tableName="product" schemaName="apps">
 			<column autoIncrement="true" name="id" type="SERIAL">
 				<constraints primaryKey="true" nullable="false"
-					primaryKeyName="hardware_pk" />
-			</column>
-			<column name="serial_number" type="VARCHAR(100)">
-				<constraints unique="true" nullable="false" />
-			</column>
-			<column name="label" type="VARCHAR(200)" />
-			<column name="amount" type="integer" />
-			<column name="marque_id" type="integer">
-				<constraints foreignKeyName="hardware_marque_fk"
-					references="apps.marque(id)" nullable="false" />
-			</column>
-			<column name="acquisition_date"
-				type="timestamp without time zone" />
-		</createTable>
-
-		<createIndex indexName="hardware_label" schemaName="apps"
-			tableName="hardware">
-			<column name="label" type="varchar(100)" />
-		</createIndex>
-
-		<createTable tableName="software" schemaName="apps">
-			<column autoIncrement="true" name="id" type="SERIAL">
-				<constraints primaryKey="true" nullable="false"
-					primaryKeyName="software_pk" />
+					primaryKeyName="product_pk" />
 			</column>
 			<column name="label" type="VARCHAR(100)" />
-			<column name="validate_date"
-				type="timestamp without time zone" />
-			<column name="acquisition_date"
-				type="timestamp without time zone" />
-			<column name="amount" type="integer" />
+			<column name="date" type="timestamp without time zone" />
+			<column name="quantity" type="integer" />
+			<column name="is_software" type="boolean" />
+			<column name="icon" type="VARCHAR(20)" />
 			<column name="marque_id" type="integer">
-				<constraints foreignKeyName="hardware_marque_fk"
+				<constraints foreignKeyName="product_marque_fk"
 					references="apps.marque(id)" nullable="false" />
 			</column>
 		</createTable>
 
-		<createIndex indexName="software_label" schemaName="apps"
-			tableName="software">
+		<createIndex indexName="product_label" schemaName="apps"
+			tableName="product">
 			<column name="label" type="varchar(100)" />
 		</createIndex>
 
@@ -106,52 +82,44 @@
 				<constraints primaryKey="true" nullable="false"
 					primaryKeyName="affectation_pk" />
 			</column>
-			<column name="partener_id" type="BIGINT" />
-			<column name="hardware_id" type="BIGINT" />
-			<column name="software_id" type="BIGINT" />
 			<column name="label" type="varchar(100)" />
+			<column name="partener_id" type="BIGINT" />
+			<column name="date" type="timestamp without time zone" />
+		</createTable>
+
+		<createTable tableName="affectation_details"
+			schemaName="apps">
+			<column autoIncrement="true" name="id" type="SERIAL">
+				<constraints primaryKey="true" nullable="false"
+					primaryKeyName="affectation_details_pk" />
+			</column>
+			<column name="label" type="varchar(100)" />
+			<column name="affectation_id" type="BIGINT" />
+			<column name="product_id" type="BIGINT" />
+			<column name="active" type="boolean" />
+			<column name="key" type="varchar(200)" />
+			<column name="serial_number" type="varchar(200)" />
 			<column name="date" type="timestamp without time zone" />
 			<column name="validation_date"
 				type="timestamp without time zone" />
-			<column name="active" type="boolean" />
+
 		</createTable>
 
 		<addForeignKeyConstraint
-			baseColumnNames="partener_id" baseTableName="affectation"
-			baseTableSchemaName="apps" constraintName="partener_affectation_fk"
+			baseColumnNames="affectation_id" baseTableName="affectation_details"
+			baseTableSchemaName="apps" constraintName="affectation_details_affectation_fk"
 			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
 			onUpdate="NO ACTION" referencedTableSchemaName="apps"
-			referencedColumnNames="id" referencedTableName="partener" />
+			referencedColumnNames="id" referencedTableName="affectation" />
 
 		<addForeignKeyConstraint
-			baseColumnNames="hardware_id" baseTableName="affectation"
-			baseTableSchemaName="apps" constraintName="hardware_affectation_fk"
+			baseColumnNames="product_id" baseTableName="affectation_details"
+			baseTableSchemaName="apps" constraintName="product_affectation_fk"
 			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
 			onUpdate="NO ACTION" referencedTableSchemaName="apps"
-			referencedColumnNames="id" referencedTableName="hardware" />
+			referencedColumnNames="id" referencedTableName="product" />
 
-		<addForeignKeyConstraint
-			baseColumnNames="software_id" baseTableName="affectation"
-			baseTableSchemaName="apps" constraintName="software_affectation_fk"
-			deferrable="true" initiallyDeferred="true" onDelete="CASCADE"
-			onUpdate="NO ACTION" referencedTableSchemaName="apps"
-			referencedColumnNames="id" referencedTableName="software" />
-
-		<createIndex indexName="affectation_partener_id"
-			schemaName="apps" tableName="affectation">
-			<column name="partener_id" type="BIGINT" />
-		</createIndex>
-
-		<createIndex indexName="affectation_hardware_id"
-			schemaName="apps" tableName="affectation">
-			<column name="hardware_id" type="BIGINT" />
-		</createIndex>
-
-		<createIndex indexName="affectation_software_id"
-			schemaName="apps" tableName="affectation">
-			<column name="software_id" type="BIGINT" />
-		</createIndex>
-
+		
 		<createTable tableName="user" schemaName="admin">
 			<column autoIncrement="true" name="id" type="SERIAL">
 				<constraints primaryKey="true" nullable="false"
@@ -171,6 +139,7 @@
 			<column name="valid" type="boolean" />
 			<column name="phone" type="VARCHAR(20)" />
 			<column name="email" type="VARCHAR(100)" />
+			<column name="profil_image" type="bytea" />
 		</createTable>
 		<createIndex indexName="user_username" schemaName="admin"
 			tableName="user">
@@ -278,9 +247,6 @@
 			<column name="date_out" type="timestamp without time zone" />
 			<column name="quantity" type="integer" />
 		</createTable>
-		<addColumn tableName="software" schemaName="apps">
-			<column name="key" type="varchar(100)" />
-		</addColumn>
 	</changeSet>
 
 	<changeSet id="0001-04" author="RBOU">
@@ -478,18 +444,46 @@
 			<column name="label" value="Materiel" />
 		</insert>
 
-		<dropColumn tableName="hardware" columnName="serial_number"
-			schemaName="apps" />
-		<dropColumn tableName="software" columnName="key"
-			schemaName="apps" />
+	
+		<createTable tableName="app_settings" schemaName="admin">
+			<column autoIncrement="true" name="id" type="SERIAL">
+				<constraints primaryKey="true" nullable="false"
+					primaryKeyName="app_settings_pk" />
+			</column>
+			<column name="label" type="VARCHAR(100)" />
+			<column name="title" type="VARCHAR(100)" />
+			<column name="footer" type="VARCHAR(200)" />
+			<column name="version" type="VARCHAR(100)" />
+			<column name="favicon" type="BYTEA" />
+			<column name="logo" type="BYTEA" />
+			<column name="login_img" type="BYTEA" />
+			<column name="header_logo_width" type="VARCHAR(10)" />
+			<column name="header_logo_height" type="VARCHAR(10)" />
+			<column name="login_img_width" type="VARCHAR(10)" />
+			<column name="login_img_height" type="VARCHAR(10)" />
+			<column name="default_lang" type="VARCHAR(2)" />
+			<column name="copyright" type="VARCHAR(512)" />
+			<column name="max_user" type="integer" />
+			<column name="description" type="VARCHAR(255)" />
+		</createTable>
 
-		<addColumn tableName="software" schemaName="apps">
-			<column name="icon" type="VARCHAR(20)" />
-		</addColumn>
-		<addColumn tableName="hardware" schemaName="apps">
-			<column name="icon" type="VARCHAR(20)" />
-		</addColumn>
-
+		<insert tableName="app_settings" schemaName="admin">
+			<column name="label" value="HelpDesk" />
+			<column name="title" value="EADN - Help desk" />
+			<column name="footer" value="EADN Help-Desk Apps." />
+			<column name="version" value="V-0.0.03" />
+			<column name="default_lang" value="fr" />
+			<column name="copyright" encoding="utf8">
+				<![CDATA[© Copyright | <a href='https://www.eadn.dz/' target='_blank'><strong>EADN</strong></a> |  HELP-DESK  ]]>
+			</column>
+			<column name="max_user" valueNumeric="10" />
+			<column name="description" value="EADN Help-Desk Apps." />
+		</insert>
 	</changeSet>
 
+	<changeSet id="0001-08" author="RBOU">
+		<sql>
+			CREATE SCHEMA audit
+		</sql>
+	</changeSet>
 </databaseChangeLog>

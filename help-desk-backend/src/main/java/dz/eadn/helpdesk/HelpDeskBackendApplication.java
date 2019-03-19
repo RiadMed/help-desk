@@ -10,26 +10,26 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @SpringBootApplication
-public class HelpDeskBackendApplication implements CommandLineRunner{
+public class HelpDeskBackendApplication implements CommandLineRunner {
 
 //	@Autowired
 //	private UserService userService;
 //	
 //	@Autowired
 //	private MarqueService marqueService;
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(HelpDeskBackendApplication.class, args);
 	}
-	
+
 	@Bean
 	public BCryptPasswordEncoder getBCPE() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
 	@Bean
 	public ModelMapper modelMapper() {
-	    return new ModelMapper();
+		return new ModelMapper();
 	}
 
 	@Override
@@ -52,14 +52,13 @@ public class HelpDeskBackendApplication implements CommandLineRunner{
 
 //
 //		userService.saveUser(new AppUser("admin", "1234"));
-		//userService.saveUser(new AppUser("user", "1234"));
+		// userService.saveUser(new AppUser("user", "1234"));
 //		appUserService.saveRoles(new Roles("ADMIN"));
 //		appUserService.saveRoles(new Roles("USER"));
 //		userService.addRoleToUser("admin", "ADMIN");
 //		userService.addRoleToUser("admin", "USER");
-		//userService.addRoleToUser("user", "USER");
-		
+		// userService.addRoleToUser("user", "USER");
+
 	}
 
 }
-

@@ -2,37 +2,20 @@
     <i class="pi pi-chevron-left ui-button-secondary back-btn-style" (click)="cancel()"></i>
     <span class="card-title-style">Marque info :</span>
     <hr />
-    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 10px">
-        <!--<div class="ui-g" *ngFor="let item of formsGroups" [ngSwitch]="item.controlType">
-             <div class="ui-g-4 ui-md-3 ui-lg-3">
-                <label for="_label">{{item.label}}</label>
-                <span style="color:red" *ngIf="item.required"> *</span> :
-            </div>
-            <div class="ui-g-8 ui-md-8 ui-lg-8">
-                <input *ngSwitchCase="'text'" type="text" [id]="item.column" [pKeyFilter]="blockSpecial" pInputText
-                    autofocus [formControlName]="item.column" class="form-control col-md-11 col-lg-11"
-                    placeholder="Libellé.">
-                <ng-select *ngSwitchCase="'select'" [items]="item.options" bindLabel="label" bindValue="id"
-                    [formControlName]="item.column" [id]="item.column">
-                </ng-select>
-                <i class="fas fa-plus-square show-ref-dialog-style" (click)="showDialog()"
-                    *ngIf="item.showAdd"></i>
-                <div *ngIf="!addForm.controls[item.column].valid&&addForm.controls[item.column].dirty">
-                    <p-message severity="error" text="{{item.message}}" style="width: 90%"></p-message>
-                </div>
-
-            </div>
-        </div> -->
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-rtl ui-fluid" style="margin: 10px 10px"
+        [dir]="'DISPLAY.RTL' | translate">
         <app-info-form-generic *ngFor="let item of formsGroups" [model]="item" [form]="addForm">
         </app-info-form-generic>
     </div>
     <hr />
     <p-footer>
-        <button pButton type="submit" icon="pi pi-check" label="Valider" class="ui-button-raised"
-            [disabled]="!addForm.valid"></button>
-        <p-button label="Fermer" icon="pi pi-times" (click)="cancel()" class="ui-button-raised"></p-button>
+        <button pButton type="submit" icon="pi pi-check" [label]="'COMMUN.BTN_VALIDATE' | translate"
+            class="ui-button-raised" [disabled]="!addForm.valid"></button>
+        <p-button [label]="'COMMUN.BTN_CANCEL' | translate" icon="pi pi-times" (click)="cancel()"
+            class="ui-button-raised"></p-button>
         <i class="pi pi-ellipsis-v" style="color: #999;margin-right: 5px"></i>
-        <p-button label="Nouveau" icon="pi pi-plus" (click)="addEntity()" *ngIf="editModel" class="ui-button-raised">
+        <p-button [label]="'COMMUN.BTN_NEW' | translate" icon="pi pi-plus" (click)="addEntity()" *ngIf="editModel"
+            class="ui-button-raised">
         </p-button>
     </p-footer>
 </form>

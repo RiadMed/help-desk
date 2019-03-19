@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { GenericComponent } from '../generic-component';
-import { Stock } from 'src/app/buisness/models/stock';
-import { StockService } from 'src/app/buisness/services/stock.service';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MessageService, ConfirmationService } from 'primeng/components/common/api';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ConfirmationService, MessageService } from 'primeng/components/common/api';
+import { Stock } from 'src/app/buisness/models/stock';
 import { ExcelService } from 'src/app/buisness/services/excel.service';
+import { StockService } from 'src/app/buisness/services/stock.service';
+import { GenericComponent } from '../generic-component';
 
 @Component({
   selector: 'app-stock',

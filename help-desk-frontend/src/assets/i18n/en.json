@@ -1,0 +1,55 @@
+{
+  "HOME": {
+    "TITLE": " Dashboard "
+  },
+  "DISPLAY": {
+    "RTL": " TRL "
+  },
+  "COMMUN": {
+    "ID": " ID ",
+    "LABEL": " Label ",
+    "BTN_NEW": " New ",
+    "BTN_VALIDATE": " Validate ",
+    "BTN_CLOSE": " Close ",
+    "BTN_CANCEL": " Cancel ",
+    "BTN_DELETE": " Delete ",
+    "BTN_MODIFIER": " Update ",
+    "TOOLTIP_SEARCH": "Generic search.",
+    "TOOLTIP_SHOW": "Show details.",
+    "TOOLTIP_DELETE": "Delete line.",
+    "PLACEHOLDER_SEARCH": "Search...",
+    "UPLOAD_IMG_LABEL":"Choose image..."
+  },
+  "MENU": {
+    "AFFECTATION_KEY": "Affectation",
+    "STOCK_KEY": "Stock",
+    "PARTENER_KEY": "Personel",
+    "HARD_KEY": "Hardware",
+    "SOFT_KEY": "Software",
+    "PROFESSION_KEY": "Profession",
+    "MARQUE_KEY": "Brand",
+    "MARQUE_FAMILY_KEY": "Brand family",
+    "SETTING_KEY": "Settings"
+  },
+  "MARQUE": {
+    "TAB_TITLE": " Brand ",
+    "TITLE": " list of brands ",
+    "FORM_LABEL": " Label ",
+    "FORM_FAMILY_MARQUE": " Brand family ",
+    "COLUMN_LABEL": " Label ",
+    "COLUMN_FAMILY_MARQUE": "  Brand family "
+  },
+  "CONFIG": {
+    "TITLE_PAGE_KEY": " Application settings ",
+    "LABEL_KEY": " Project name ",
+    "TITLE_KEY": " Title ",
+    "DEFAULT_LANG_KEY": " Language ",
+    "FOOTER_KEY": " Footer texte ",
+    "VERSION_KEY": " Version ",
+    "COPYRIGHT_KEY": " Copyright ",
+    "DESCRIPTION_KEY": " Description ",
+    "MAX_USER_KEY": " User nember ",
+    "LOGO_KEY": " Logo ",
+    "LOGIN_IMG_KEY": " Login image "
+  }
+}

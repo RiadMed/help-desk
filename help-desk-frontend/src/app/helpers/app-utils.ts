@@ -36,7 +36,7 @@ export class AppUtils {
     public navigate(url: string) {
         this.router.navigate([url]);
     }
-
+    
     public navigateByUrl(url: string) {
         this.router.navigateByUrl(url);
     }

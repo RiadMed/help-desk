@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { GenericComponent } from '../generic-component';
-import { Affectation } from 'src/app/buisness/models/affectation';
-import { AffectationService } from 'src/app/buisness/services/affectation.service';
-import { MessageService, ConfirmationService } from 'primeng/components/common/api';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ConfirmationService, MessageService } from 'primeng/components/common/api';
+import { Affectation } from 'src/app/buisness/models/affectation';
 import { Partener } from 'src/app/buisness/models/partener';
-import { PartenerService } from 'src/app/buisness/services/partener.service';
-import { Hardware } from 'src/app/buisness/models/hardware';
-import { HardwareService } from 'src/app/buisness/services/hardware.service';
-import { Software } from 'src/app/buisness/models/software';
-import { SoftwareService } from 'src/app/buisness/services/software.service';
+import { Product } from 'src/app/buisness/models/Product';
+import { AffectationService } from 'src/app/buisness/services/affectation.service';
 import { ExcelService } from 'src/app/buisness/services/excel.service';
+import { HardwareService } from 'src/app/buisness/services/hardware.service';
+import { PartenerService } from 'src/app/buisness/services/partener.service';
+import { SoftwareService } from 'src/app/buisness/services/software.service';
+import { GenericComponent } from '../generic-component';
 
 @Component({
   selector: 'app-affectation',
@@ -21,10 +20,10 @@ export class AffectationComponent extends GenericComponent<Affectation, Affectat
 
   parteners: Array<Partener>;
   _partener: Partener;
-  hardwares: Array<Hardware>;
-  _hardware: Hardware;
-  softwares: Array<Software>;
-  _software: Software;
+  hardwares: Array<Product>;
+  _hardware: Product;
+  softwares: Array<Product>;
+  _software: Product;
 
   rowGroupMetadata: any;
 
@@ -48,10 +47,10 @@ export class AffectationComponent extends GenericComponent<Affectation, Affectat
       this.parteners = data;
     });
     this.hardwareService.findAll().subscribe(data => {
-      this.hardwares = data.filter(x => x.amount > 0);
+      this.hardwares = data.filter(x => x.quantity > 0);
     });
     this.softwareService.findAll().subscribe(data => {
-      this.softwares = data.filter(x => x.amount > 0);
+      this.softwares = data.filter(x => x.quantity > 0);
     })
 
   }

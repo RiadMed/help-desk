@@ -10,6 +10,8 @@ export const API_URLS = {
     STOCK_API: "/stocks",
     HARDWARE_API: "/hardwares",
     SOFTWARE_API: "/softwares",
+    PRODUCT_API: "/products",
     PARTENER_API: "/parteners",
     AFFECTATION_API: "/affectations",
+    SETTINGS_API: "/settings",
 }

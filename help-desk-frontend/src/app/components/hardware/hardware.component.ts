@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { GenericComponent } from '../generic-component';
-import { Hardware } from 'src/app/buisness/models/hardware';
-import { HardwareService } from 'src/app/buisness/services/hardware.service';
-import { MessageService, ConfirmationService } from 'primeng/components/common/api';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { MarqueService } from 'src/app/buisness/services/marque.service';
+import { ConfirmationService, MessageService } from 'primeng/components/common/api';
+import { Hardware } from 'src/app/buisness/models/hardware';
 import { Marque } from 'src/app/buisness/models/Marque';
+import { Product } from 'src/app/buisness/models/Product';
 import { ExcelService } from 'src/app/buisness/services/excel.service';
+import { HardwareService } from 'src/app/buisness/services/hardware.service';
+import { MarqueService } from 'src/app/buisness/services/marque.service';
+import { GenericComponent } from '../generic-component';
 
 @Component({
   selector: 'app-hardware',
   templateUrl: './hardware.component.html'
 })
-export class HardwareComponent extends GenericComponent<Hardware, HardwareService> {
+export class HardwareComponent extends GenericComponent<Product, HardwareService> {
 
   marques: Array<Marque>;
   _marque: Marque;
-  display: boolean;
+  displayDlg: boolean;
 
   constructor(hardwareService: HardwareService
     , messageService: MessageService
@@ -31,7 +32,8 @@ export class HardwareComponent extends GenericComponent<Hardware, HardwareServic
   }
 
   protected afterInit(): void {
-    this.display = false;
+    this.displayDlg = false;
+    this.listAll = this.listAll.filter(x => x.isSoftware !== null && !x.isSoftware);
     this.marqueService.findAll().subscribe(
       data => {
         this.marques = data.filter(x => x.marqueFamilyId == 2);
@@ -48,7 +50,7 @@ export class HardwareComponent extends GenericComponent<Hardware, HardwareServic
   protected afterAdd(): void {
   }
 
-  protected afterShowDetails(_selected: Hardware): void {
+  protected afterShowDetails(_selected: Product): void {
 
 
   }
@@ -58,7 +60,7 @@ export class HardwareComponent extends GenericComponent<Hardware, HardwareServic
 
   showDialog() {
     this._marque = new Marque();
-    this.display = true;
+    this.displayDlg = true;
   }
 
 }

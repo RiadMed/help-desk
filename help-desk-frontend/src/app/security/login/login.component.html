@@ -1,8 +1,12 @@
 <body class="col-xs-10 col-sm-10 col-md-6 col-lg-4 login-panel Elevation-2dp">
   <form [formGroup]="loginForm" class="form-signin" (ngSubmit)="onLogin(loginForm.value)">
     <div style="text-align: center">
-      <img src="../../assets/images/logo_eadn.png" width="280px" height="90px">
-      <!-- <p class="h5 mb-3 font-weight-normal" style="color: #00425C">Welcome EADN</p> -->
+      <div *ngIf="hasImage; else loggedOut">
+        <img [src]="logoUrl" width="280px" height="90px">
+      </div>
+      <ng-template #loggedOut>
+        <img src="../../assets/images/logo_eadn.png" width="280px" height="90px">
+      </ng-template>
     </div>
     <hr />
     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 10px">

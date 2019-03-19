@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ModelForm } from 'src/app/buisness/models/model-form';
+import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ModelForm } from 'src/app/buisness/models/model-form';
 
 @Component({
   selector: 'app-info-form-generic',
@@ -11,5 +11,5 @@ export class InfoFormGenericComponent {
   @Input() title: string;
   @Input('model') modelForm: ModelForm<any>;
   @Input('form') addForm: FormGroup;
- 
+
 }

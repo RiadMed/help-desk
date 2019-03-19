@@ -1,18 +1,18 @@
 import { Component, Input } from "@angular/core";
-import { FormBuilder, FormControl, Validators, FormGroup } from "@angular/forms";
+import { FormGroup } from "@angular/forms";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from "primeng/components/common/api";
 import { Marque } from "src/app/buisness/models/Marque";
-import { Software } from "src/app/buisness/models/software";
+import { Product } from "src/app/buisness/models/Product";
+import { MarqueService } from "src/app/buisness/services/marque.service";
 import { SoftwareService } from "src/app/buisness/services/software.service";
 import { AddGenericComponent } from "../add-generic-component";
-import { MarqueService } from "src/app/buisness/services/marque.service";
 
 @Component({
     selector: 'add-software',
     templateUrl: './add-software.component.html'
 })
-export class AddSoftwareComponent extends AddGenericComponent<Software, SoftwareService> {
+export class AddSoftwareComponent extends AddGenericComponent<Product, SoftwareService> {
 
     @Input('items') marqueItems: Array<Marque>;
     @Input() marque: Marque;
@@ -31,14 +31,12 @@ export class AddSoftwareComponent extends AddGenericComponent<Software, Software
         this.display = false;
         this.marque = new Marque();
         if (this.editModel) {
-            this.model.acquisitionDate = new Date(this.model.acquisitionDate);
-            this.model.validateDate = new Date(this.model.validateDate);
+            this.model.date = new Date(this.model.date);
             if (this.marqueItems)
                 this.marque = this.marqueItems.find(x => x.id == this.model.marqueId);
         } else {
-            this.model = new Software();
-            this.model.acquisitionDate = new Date();
-            this.model.validateDate = new Date();
+            this.model = new Product();
+            this.model.date = new Date();
         }
     }
 
@@ -58,10 +56,9 @@ export class AddSoftwareComponent extends AddGenericComponent<Software, Software
     }
 
     protected afterAdd(): void {
-        this.model = new Software();
-        this.model.acquisitionDate = new Date();
-        this.model.validateDate = new Date();
-    }
+        this.model = new Product();
+        this.model.date = new Date();
+        }
 
     protected afterSave(): void {
     }

@@ -3,17 +3,17 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ConfirmationService, MessageService } from 'primeng/components/common/api';
 import { Marque } from 'src/app/buisness/models/Marque';
-import { Software } from 'src/app/buisness/models/software';
+import { ExcelService } from 'src/app/buisness/services/excel.service';
 import { MarqueService } from 'src/app/buisness/services/marque.service';
 import { SoftwareService } from 'src/app/buisness/services/software.service';
 import { GenericComponent } from '../generic-component';
-import { ExcelService } from 'src/app/buisness/services/excel.service';
+import { Product } from 'src/app/buisness/models/Product';
 
 @Component({
   selector: 'app-software',
   templateUrl: './software.component.html'
 })
-export class SoftwareComponent extends GenericComponent<Software, SoftwareService> {
+export class SoftwareComponent extends GenericComponent<Product, SoftwareService> {
 
   marques: Array<Marque>;
   _marque: Marque;
@@ -45,9 +45,9 @@ export class SoftwareComponent extends GenericComponent<Software, SoftwareServic
     ];
   }
   protected afterAdd(): void {
-
+    this.listAll = this.listAll.filter(x => x.isSoftware !== null && x.isSoftware);
   }
-  protected afterShowDetails(_selected: Software): void {
+  protected afterShowDetails(_selected: Product): void {
 
   }
   protected afterCancel(): void {
