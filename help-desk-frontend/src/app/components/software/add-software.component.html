@@ -1,79 +1,23 @@
-<form #addForm="ngForm" (ngSubmit)="saveData()">
-    <i class="pi pi-chevron-left ui-button-secondary back-btn-style" (click)="cancel()"></i>
-    <span class="card-title-style">
-        Logiciel info :</span>
-    <hr />
-    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 10px">
-        <div class="ui-g">
-            <div class="ui-g-4 ui-md-3 ui-lg-3">
-                <label for="_label">Libellé</label>
-                <span style="color:red"> *</span> :
-            </div>
-            <div class="ui-g-8 ui-md-8 ui-lg-8">
-                <input type="text" id="_label" [pKeyFilter]="blockSpecial" pInputText [(ngModel)]="model.label"
-                    name="label" autofocus class="form-control col-md-11 col-lg-11" placeholder="Libellé." minlength="2"
-                    #name="ngModel">
-                <div *ngIf="name.errors?.minlength">
-                    <p-message severity="error" text="Minimum 2 caractère."></p-message>
-                </div>
-            </div>
-
-            <div class="ui-g-4 ui-md-3 ui-lg-3">
-                <label for="_acquisitionDate">Date</label>
-                <span style="color:red"> *</span> :
-            </div>
-            <div class="ui-g-8 ui-md-8 ui-lg-8">
-                <p-calendar id="acquisitionDate" [showIcon]="true" [(ngModel)]="model.acquisitionDate"
-                    name="acquisitionDate" dateFormat="dd/mm/yy" placeholder="Date d'entrée."></p-calendar>
-            </div>
-            <div class="ui-g-4 ui-md-3 ui-lg-3">
-                <label for="_validateDate">Validation Date</label>
-            </div>
-            <div class="ui-g-8 ui-md-8 ui-lg-8">
-                <p-calendar id="validateDate" [showIcon]="true" [(ngModel)]="model.validateDate" name="validateDate"
-                    dateFormat="dd/mm/yy" placeholder="Valider jusqu'a."></p-calendar>
-            </div>
-            <div class="ui-g-4 ui-md-3 ui-lg-3">
-                <label for="_marque">Marque :</label>
-            </div>
-            <div class="ui-g-8 ui-md-8 ui-lg-8">
-                <p-dropdown id="_marque" [options]="marqueItems" [(ngModel)]="marque" name="marque"
-                    placeholder="Select a Marque" [style]="{'width':'90%','float':'left'}" optionLabel="label"
-                    [showClear]="true" [autoWidth]="false">
-                </p-dropdown>
-                <i class="fas fa-plus-square show-ref-dialog-style" (click)="showDialog()"></i>
-            </div>
-
-            <div class="ui-g-4 ui-md-3 ui-lg-3">
-                <label for="_amount">Quantité :</label>
-            </div>
-            <div class="ui-g-8 ui-md-8 ui-lg-8">
-                <input type="text" id="_amount" pInputText pKeyFilter="num" [(ngModel)]="model.amount" name="amount"
-                    class="form-control col-md-11 col-lg-11" placeholder="Quantité.">
-            </div>
-
-            <div class="ui-g-4 ui-md-3 ui-lg-3">
-                <label for="_label">Logo :</label>
-            </div>
-            <div class="ui-g-8 ui-md-8 ui-lg-8">
-                <input type="text" id="_icon" pInputText [(ngModel)]="model.icon"
-                    name="icon" class="form-control col-md-11 col-lg-11" placeholder="logiciel logo.">
-            </div>
-
-
-        </div>
-    </div>
-    <hr />
-    <p-footer>
-        <button pButton type="submit" icon="pi pi-check" label="Valider" [disabled]="!addForm.form.valid"
-            class="ui-button-raised"></button>
-        <button pButton label="Fermer" icon="pi pi-times" (click)="cancel()" class="ui-button-raised"></button>
-        <i class="pi pi-ellipsis-v" style="color: #999;margin-right: 5px"></i>
-        <button pButton label="Nouveau" icon="pi pi-plus" (click)="addEntity()" *ngIf="editModel"
-            class="ui-button-raised"></button>
-    </p-footer>
+<form [formGroup]="addForm" (ngSubmit)="saveDataForm(addForm.value)">
+  <i class="pi pi-chevron-left ui-button-secondary back-btn-style" (click)="cancel()"></i>
+  <span class="card-title-style">
+        {{'SOFTWARE.VIEW_TITLE' | translate}} :</span>
+  <hr/>
+  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-rtl ui-fluid" style="margin: 10px 10px"
+       [dir]="'DISPLAY.RTL' | translate">
+    <app-info-form-generic *ngFor="let item of formsGroups | async" [model]="item" [form]="addForm"
+                           (clickShowAddDialog)="showDialog()">
+    </app-info-form-generic>
+  </div>
+  <hr/>
+  <p-footer>
+    <button pButton type="submit" icon="pi pi-check" [label]="'COMMUN.BTN_VALIDATE' | translate"
+            class="ui-button-raised" [disabled]="!addForm.valid"></button>
+    <p-button [label]="'COMMUN.BTN_CANCEL' | translate" icon="pi pi-times" (click)="cancel()"
+              class="ui-button-raised"></p-button>
+    <i class="pi pi-ellipsis-v" style="color: #999;margin-right: 5px"></i>
+    <p-button [label]="'COMMUN.BTN_NEW' | translate" icon="pi pi-plus" (click)="addEntity()" *ngIf="editModel"
+              class="ui-button-raised">
+    </p-button>
+  </p-footer>
 </form>
-
-<!-- <app-add-dialog [datasource]="marqueItems" [appModel]="marque" [showDialog]="display" [service]="marqueService"
-    (pushDataEvent)="marqueItems=$event" (hideDialogEvent)="display=$event" (pushModelEvent)="marque=$event">
-</app-add-dialog> -->

@@ -5,6 +5,7 @@ import { MarqueFamily } from "src/app/buisness/models/marque-family";
 import { MarqueFamilyService } from "src/app/buisness/services/marque-family.service";
 import { AddGenericComponent } from "../add-generic-component";
 import { FormGroup } from "@angular/forms";
+import { Observable, of } from "rxjs";
 
 @Component({
     selector: 'add-marque-family',
@@ -21,8 +22,8 @@ export class AddMarqueFamilyComponent extends AddGenericComponent<MarqueFamily, 
     protected afterInit(): void {
     }
 
-    protected loadFormModels(): any[] {
-        return [];
+    protected loadFormModels(): Observable<any[]> {
+        return of([]);
     }
     protected initFormGroup(): FormGroup {
         return null;

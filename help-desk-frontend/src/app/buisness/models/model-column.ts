@@ -1,23 +1,17 @@
 export class ModelColumn {
-    filed: string;
+    field: string;
     header: string;
     type: string;
-    format: boolean;
-    pipe: string;
     width: string;
 
-    constructor(filed?: string,
+    constructor(field?: string,
         header?: string,
         type?: string,
-        format?: boolean,
-        pipe?: string,
         width?: string) {
 
-        this.filed = filed;
+        this.field = field;
         this.header = header;
         this.type = type;
-        this.format = format;
-        this.pipe = pipe || '';
         this.width = width || '';
     }
 }

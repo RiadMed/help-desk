@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators, NgForm } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
-import { AppSettings } from 'src/app/buisness/models/app-settings';
-import { ApplicationService } from 'src/app/buisness/services/application.service';
-import { ModelForm } from 'src/app/buisness/models/model-form';
-import { MessageService, SelectItem } from 'primeng/primeng';
-import { Router } from '@angular/router';
-import { AppUtils } from 'src/app/helpers/app-utils';
-import { NgxSpinnerService } from 'ngx-spinner';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AppSettings} from 'src/app/buisness/models/app-settings';
+import {ApplicationService} from 'src/app/buisness/services/application.service';
+import {MessageService, SelectItem} from 'primeng/primeng';
+import {Router} from '@angular/router';
+import {AppUtils} from 'src/app/helpers/app-utils';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-application',

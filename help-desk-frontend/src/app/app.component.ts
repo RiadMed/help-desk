@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { filter, map, mergeMap } from 'rxjs/operators';
-import { User } from './buisness/models/user';
-import { TranslateService } from '@ngx-translate/core';
-import { Observable, Subject } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { ApplicationService } from './buisness/services/application.service';
-import { AppSettings } from './buisness/models/app-settings';
+import {Component, OnInit} from '@angular/core';
+import {Title} from '@angular/platform-browser';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {filter, map, mergeMap} from 'rxjs/operators';
+import {User} from './buisness/models/user';
+import {TranslateService} from '@ngx-translate/core';
+import {Observable} from 'rxjs';
+import {ApplicationService} from './buisness/services/application.service';
+import {AppSettings} from './buisness/models/app-settings';
 
 
 @Component({

@@ -9,6 +9,8 @@ import { ExcelService } from 'src/app/buisness/services/excel.service';
 import { HardwareService } from 'src/app/buisness/services/hardware.service';
 import { MarqueService } from 'src/app/buisness/services/marque.service';
 import { GenericComponent } from '../generic-component';
+import { ModelColumn } from 'src/app/buisness/models/model-column';
+import { DataType } from 'src/app/helpers/data-type';
 
 @Component({
   selector: 'app-hardware',
@@ -33,18 +35,31 @@ export class HardwareComponent extends GenericComponent<Product, HardwareService
 
   protected afterInit(): void {
     this.displayDlg = false;
-    this.listAll = this.listAll.filter(x => x.isSoftware !== null && !x.isSoftware);
     this.marqueService.findAll().subscribe(
       data => {
         this.marques = data.filter(x => x.marqueFamilyId == 2);
-      })
+      });
+    this.loadDataOnInit = false;
+    this.getService().refreshData.subscribe(() => {
+      this.loadAllHard();
+    });
+    this.loadAllHard();
   }
-  protected loadColumns(): any[] {
+
+  private loadAllHard() {
+    this.getService().findByType(1).subscribe(data => {
+      this.listAll = data;
+      this.totalRecords = data.length;
+    })
+  }
+
+  protected loadColumns(): ModelColumn[] {
     return [
-      { field: 'label', header: 'Libellé', pipe: 'uppercase' },
-      { field: 'marqueLabel', header: 'Marque', pipe: 'string' },
-      { field: 'amount', header: 'Quantité', width: '15%', pipe: '' },
-      { field: 'acquisitionDate', header: 'Date', pipe: 'Date' }
+      new ModelColumn('id', 'COMMUN.ID', DataType.NUMBER, '4em'),
+      new ModelColumn('label', 'COMMUN.LABEL', DataType.TEXT, '25%'),
+      new ModelColumn('marqueLabel', 'HARDWARE.FORM_MARQUE', DataType.TEXT, '20%'),
+      new ModelColumn('quantity', 'HARDWARE.FORM_QUANTITY', DataType.NUMBER, '10%'),
+      new ModelColumn('date', 'HARDWARE.FORM_DATE', DataType.DATE, '15%')
     ];
   }
   protected afterAdd(): void {

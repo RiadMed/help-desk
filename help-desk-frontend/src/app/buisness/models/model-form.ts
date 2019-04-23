@@ -1,7 +1,7 @@
 import { ParentModel } from "./parent-model";
 
 export class ModelForm<T extends ParentModel>{
-    column: string;
+    field: string;
     label: string;
     required: boolean;
     controlType: string;
@@ -11,7 +11,7 @@ export class ModelForm<T extends ParentModel>{
     showAdd: boolean;
     message: string;
 
-    constructor(column?: string,
+    constructor(field?: string,
         label?: string,
         required?: boolean,
         controlType?: string,
@@ -21,7 +21,7 @@ export class ModelForm<T extends ParentModel>{
         showAdd?: boolean,
         message?: string) {
 
-        this.column = column || '';
+        this.field = field || '';
         this.label = label || '';
         this.required = required;
         this.readOnly = readOnly;

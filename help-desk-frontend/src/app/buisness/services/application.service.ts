@@ -8,9 +8,7 @@ import { PathName } from 'src/app/helpers/path-name';
 import { AppSettings } from '../models/app-settings';
 import { tap } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ApplicationService {
 
   private _appSetting: AppSettings;
@@ -49,6 +47,5 @@ export class ApplicationService {
 
   get appSetting(): AppSettings {
     return this._appSetting;
-
   }
 }

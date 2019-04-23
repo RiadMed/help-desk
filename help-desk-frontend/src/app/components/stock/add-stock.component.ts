@@ -5,6 +5,7 @@ import { MessageService } from "primeng/components/common/api";
 import { Stock } from "src/app/buisness/models/stock";
 import { StockService } from "src/app/buisness/services/stock.service";
 import { AddGenericComponent } from "../add-generic-component";
+import { Observable, of } from "rxjs";
 
 @Component({
     selector: 'add-stock',
@@ -28,9 +29,10 @@ export class AddStockComponent extends AddGenericComponent<Stock, StockService> 
         }
     }
 
-    protected loadFormModels(): any[] {
-        return [];
+    protected loadFormModels(): Observable<any[]> {
+        return of([]);
     }
+    
     protected initFormGroup(): FormGroup {
         return null;
     }

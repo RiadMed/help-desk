@@ -1,6 +1,7 @@
 package dz.eadn.helpdesk.business.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,7 @@ public class ProductServiceImpl extends GenericServiceImpl<ProductDao, Product, 
 
 	@Override
 	public List<ProductDto> findByIsSoftware(Boolean isSoftware) {
-		return dao.findByIsSoftware(isSoftware);
+		return  dao.findByIsSoftware(isSoftware).stream().map(entity -> convertToDto(entity)).collect(Collectors.toList());
 	}
 
 }

@@ -14,6 +14,7 @@
     "BTN_CANCEL": " Annuler ",
     "BTN_DELETE": "Suprimer",
     "BTN_MODIFIER": "Modifier",
+    "TITLE_MODIFIER": " Modifier ",
     "TOOLTIP_SEARCH": "Recherche générique.",
     "TOOLTIP_SHOW": "Voir le détail.",
     "TOOLTIP_DELETE": "Suprimer la ligne.",
@@ -34,10 +35,31 @@
   "MARQUE": {
     "TAB_TITLE": " Marques ",
     "TITLE": " Liste des marques ",
+    "VIEW_TITLE": " Marque info ",
     "FORM_LABEL": " Libellé ",
     "FORM_FAMILY_MARQUE": " Famille de marque ",
     "COLUMN_LABEL": " Libellé ",
     "COLUMN_FAMILY_MARQUE": " Famille de marque "
+  },
+  "SOFTWARE": {
+    "TAB_TITLE": " Logiciel ",
+    "TITLE": " Liste des logiciels ",
+    "VIEW_TITLE": " Logiciel info ",
+    "FORM_LABEL": " Libellé ",
+    "FORM_QUANTITY": " Qauntité ",
+    "FORM_DATE": " Date ",
+    "FORM_ICON": " Icon ",
+    "FORM_MARQUE": " Marque "
+  },
+  "HARDWARE": {
+    "TAB_TITLE": " Materiel ",
+    "TITLE": " Liste des matériaux ",
+    "VIEW_TITLE": " Matériel info ",
+    "FORM_LABEL": " Libellé ",
+    "FORM_QUANTITY": " Qauntité ",
+    "FORM_DATE": " Date ",
+    "FORM_ICON": " Icon ",
+    "FORM_MARQUE": " Marque "
   },
   "CONFIG": {
     "TITLE_PAGE_KEY": " Application config ",

@@ -3,6 +3,9 @@ package dz.eadn.helpdesk.business.data.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import dz.eadn.helpdesk.commun.ParentDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,6 +45,7 @@ public class ProductDto extends ParentDto<Long> implements Serializable {
 
 	@Getter
 	@Setter
+	@JsonProperty(access = Access.READ_ONLY)
 	private String marqueLabel;
 
 	@Override

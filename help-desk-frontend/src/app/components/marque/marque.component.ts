@@ -8,6 +8,8 @@ import { ExcelService } from 'src/app/buisness/services/excel.service';
 import { MarqueFamilyService } from 'src/app/buisness/services/marque-family.service';
 import { MarqueService } from 'src/app/buisness/services/marque.service';
 import { GenericComponent } from '../generic-component';
+import { DataType } from 'src/app/helpers/data-type';
+import { ModelColumn } from 'src/app/buisness/models/model-column';
 
 @Component({
   selector: 'app-marque',
@@ -33,13 +35,14 @@ export class MarqueComponent extends GenericComponent<Marque, MarqueService> {
     this.marqueFamilyService.findAll().subscribe(
       data => {
         this.marqueFamilies = data;
-      })
+      });
   }
 
   protected loadColumns(): any[] {
     return [
-      { field: 'label', header: 'MARQUE.COLUMN_LABEL', pipe: 'uppercase' },
-      { field: 'marqueFamilyLabel', header: 'MARQUE.COLUMN_FAMILY_MARQUE', pipe: 'uppercase' }
+      new ModelColumn('id', 'COMMUN.ID', DataType.NUMBER, '4em'),
+      new ModelColumn('label', 'COMMUN.LABEL', DataType.TEXT, '30%'),
+      new ModelColumn('marqueFamilyLabel', 'MARQUE.COLUMN_FAMILY_MARQUE', DataType.TEXT, '30%'),
     ];
   }
 

@@ -7,6 +7,7 @@ import { MarqueFamily } from "src/app/buisness/models/marque-family";
 import { ModelForm } from "src/app/buisness/models/model-form";
 import { MarqueService } from "src/app/buisness/services/marque.service";
 import { AddGenericComponent } from "../add-generic-component";
+import { Observable, of } from "rxjs";
 
 @Component({
     selector: 'add-marque',
@@ -31,12 +32,12 @@ export class AddMarqueComponent extends AddGenericComponent<Marque, MarqueServic
         this.display = false;
     }
 
-    protected loadFormModels(): any[] {
-        return [
+    protected loadFormModels(): Observable<any[]> {
+        return of([
             new ModelForm("id", "COMMUN.ID", true, "text", true, false, null, false, "Minimum 2 caractère."),
             new ModelForm("label", "COMMUN.LABEL", true, "text", false, true, null, false, "Minimum 2 caractère."),
             new ModelForm("marqueFamilyId", "MARQUE.FORM_FAMILY_MARQUE", true, "select", false, true, this.marqueFamilyItems, true, "Veuillez sélectionner la famille de marque.")
-        ]
+        ]);
     }
 
     protected initFormGroup(): FormGroup {

@@ -14,11 +14,12 @@
     "BTN_CANCEL": " Cancel ",
     "BTN_DELETE": " Delete ",
     "BTN_MODIFIER": " Update ",
+    "TITLE_MODIFIER": " Update ",
     "TOOLTIP_SEARCH": "Generic search.",
     "TOOLTIP_SHOW": "Show details.",
     "TOOLTIP_DELETE": "Delete line.",
     "PLACEHOLDER_SEARCH": "Search...",
-    "UPLOAD_IMG_LABEL":"Choose image..."
+    "UPLOAD_IMG_LABEL": "Choose image..."
   },
   "MENU": {
     "AFFECTATION_KEY": "Affectation",
@@ -34,10 +35,31 @@
   "MARQUE": {
     "TAB_TITLE": " Brand ",
     "TITLE": " list of brands ",
+    "VIEW_TITLE": " brand info ",
     "FORM_LABEL": " Label ",
     "FORM_FAMILY_MARQUE": " Brand family ",
     "COLUMN_LABEL": " Label ",
     "COLUMN_FAMILY_MARQUE": "  Brand family "
+  },
+  "SOFTWARE": {
+    "TAB_TITLE": " Software ",
+    "TITLE": " List of softwares ",
+    "VIEW_TITLE": " software info ",
+    "FORM_LABEL": " label ",
+    "FORM_QUANTITY": " Quantity ",
+    "FORM_DATE": " Date ",
+    "FORM_ICON": " Icon ",
+    "FORM_MARQUE": " Brand "
+  },
+  "HARDWARE": {
+    "TAB_TITLE": " Hardware ",
+    "TITLE": " List of hardwares ",
+    "VIEW_TITLE": " Hardware info ",
+    "FORM_LABEL": " label ",
+    "FORM_QUANTITY": " Quantity ",
+    "FORM_DATE": " Date ",
+    "FORM_ICON": " Icon ",
+    "FORM_MARQUE": " Brand "
   },
   "CONFIG": {
     "TITLE_PAGE_KEY": " Application settings ",

@@ -17,8 +17,8 @@
           <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false" translate>{{menu.label | translate}}</a>
           <div class="dropdown-menu" aria-labelledby="dropdown01">
-            <a class="dropdown-item" routerLink="{{menu.routers}}">{{menu.label | translate}}</a>
-            <a class="dropdown-item" *ngFor="let item of getMenusChilds(menu)" routerLink="{{item.routers}}"
+            <a class="dropdown-item" (click)="goWithRouter(menu.routers)">{{menu.label | translate}}</a>
+            <a class="dropdown-item" *ngFor="let item of getMenusChilds(menu)" (click)="goWithRouter(item.routers)"
               translate>{{item.label | translate}}</a>
           </div>
         </li>

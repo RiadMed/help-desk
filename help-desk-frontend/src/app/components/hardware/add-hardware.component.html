@@ -1,54 +1,18 @@
-<form #addForm="ngForm">
+<form [formGroup]="addForm" (ngSubmit)="saveDataForm(addForm.value)">
     <i class="pi pi-chevron-left ui-button-secondary back-btn-style" (click)="cancel()"></i>
     <span class="card-title-style">
-        Hardware info :</span>
+        {{'HARDWARE.VIEW_TITLE' | translate}}
+        :</span>
     <hr />
-    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 10px">
-        <div class="ui-g">
-            <div class="ui-g-4 ui-md-3 ui-lg-3">
-                <label for="_label">Libellé</label>
-                <span style="color:red"> *</span> :
-            </div>
-            <div class="ui-g-8 ui-md-8 ui-lg-8">
-                <input type="text" id="_label" [pKeyFilter]="blockSpecial" placeholder="Libellé." required pInputText
-                    [(ngModel)]="model.label" name="label" autofocus class="form-control col-md-11 col-lg-11"
-                    minlength="2" #name="ngModel">
-                <div *ngIf="name.errors?.minlength">
-                    <p-message severity="error" text="Minimum 2 caractère."></p-message>
-                </div>
-            </div>
-            
-            <div class="ui-g-4 ui-md-3 ui-lg-3">
-                <label for="_acquisitionDate">Date</label>
-                <span style="color:red"> *</span> :
-            </div>
-            <div class="ui-g-8 ui-md-8 ui-lg-8">
-                <p-calendar id="_acquisitionDate" [(ngModel)]="model.acquisitionDate" required [showIcon]="true"
-                    name="acquisitionDate | date:'dd/mm/yy'" placeholder="Date." dateFormat="dd/mm/yy"></p-calendar>
-            </div>
-            <div class="ui-g-4 ui-md-3 ui-lg-3">
-                <label for="_marque">Marque :</label>
-            </div>
-            <div class="ui-g-8 ui-md-8 ui-lg-8">
-                <p-dropdown id="_marque" [options]="marqueItems" [(ngModel)]="marque" name="marque"
-                    placeholder="Select a Marque" [style]="{'width':'93%','float':'left'}" optionLabel="label"
-                    [showClear]="true" [autoWidth]="false">
-                </p-dropdown>
-            </div>
-            <div class="ui-g-4 ui-md-3 ui-lg-3">
-                <label for="_amount">Quantité :</label>
-            </div>
-            <div class="ui-g-8 ui-md-8 ui-lg-8">
-                <input type="text" id="_amount" pKeyFilter="num" placeholder="Quantité." required pInputText
-                    [(ngModel)]="model.amount" name="amount" class="form-control col-md-11 col-lg-11">
-            </div>
-
-
-        </div>
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-rtl ui-fluid" style="margin: 10px 10px"
+        [dir]="'DISPLAY.RTL' | translate">
+        <app-info-form-generic *ngFor="let item of formsGroups | async" [model]="item" [form]="addForm"
+            (clickShowAddDialog)="showDialog()">
+        </app-info-form-generic>
     </div>
     <hr />
     <p-footer>
-        <button pButton (click)="saveData()" icon="pi pi-check" label="Valider" [disabled]="!addForm.form.valid"
+        <button pButton (click)="saveData()" icon="pi pi-check" label="Valider" [disabled]="!addForm.valid"
             class="ui-button-raised"></button>
         <p-button label="Fermer" icon="pi pi-times" (click)="cancel()" class="ui-button-raised"></p-button>
         <i class="pi pi-ellipsis-v" style="color: #999;margin-right: 5px"></i>

@@ -1,7 +1,9 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { ParentModel } from 'src/app/buisness/models/parent-model';
+import { Component, EventEmitter, Input, Output, HostListener } from '@angular/core';
 import { ModelColumn } from 'src/app/buisness/models/model-column';
-import { ApplicationService } from 'src/app/buisness/services/application.service';
+import { ParentModel } from 'src/app/buisness/models/parent-model';
+import { DTCheckbox } from 'primeng/primeng';
+import { Table } from 'primeng/table';
+import { query } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-list-generic',
@@ -19,6 +21,12 @@ export class ListGenericComponent<T extends ParentModel> {
   @Output() clickExportExcel = new EventEmitter<void>();
   @Input() display: string;
 
+  query: string = "";
+  table: Table;
+  keyup: boolean = true;
+
+  KEYCODE_ESC: string = "Escape";
+
   public addEntity() {
     this.clickAdd.emit();
   }
@@ -34,4 +42,21 @@ export class ListGenericComponent<T extends ParentModel> {
   public exportAsXLSX() {
     this.clickExportExcel.emit();
   }
+
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if (event.key === this.KEYCODE_ESC) {
+      this.query = ""
+      this.table.reset();
+      this.keyup = true;
+    }
+  }
+
+  onChangeFilter(dt: Table) {
+    if (this.keyup) {
+      this.table = dt;
+      this.keyup = false;
+    }
+  }
+
 }

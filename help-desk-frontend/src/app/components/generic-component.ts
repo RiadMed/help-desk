@@ -6,11 +6,11 @@ import { ParentModel } from "../buisness/models/parent-model";
 import { ExcelService } from "../buisness/services/excel.service";
 import { GenericService } from "../buisness/services/generic-service";
 import { AppUtils } from "../helpers/app-utils";
-import { ApplicationService } from "../buisness/services/application.service";
+import { ModelColumn } from "../buisness/models/model-column";
 
 export abstract class GenericComponent<T extends ParentModel, S extends GenericService<T>> implements OnInit {
 
-    constructor(private service: S
+  protected constructor(private service: S
         , private confirmationService: ConfirmationService
         , private messageService: MessageService
         , private ngxSpinnerService: NgxSpinnerService
@@ -21,15 +21,17 @@ export abstract class GenericComponent<T extends ParentModel, S extends GenericS
     protected selected: T;
     protected listAll: Array<T>;
     private columns: any[];
-    private totalRecords: number;
+    protected totalRecords: number;
     private showDetail: boolean;
     private editMode: boolean;
     private addMode: boolean;
     private loading: boolean;
+    protected display: boolean;
+    protected sorterBy: string;
+    protected sorterMode: string;
     protected loadDataOnInit: boolean;
 
     protected appUtils: AppUtils;
-    protected display: string;
 
     ngOnInit(): void {
         this.loadDataOnInit = true;
@@ -37,24 +39,27 @@ export abstract class GenericComponent<T extends ParentModel, S extends GenericS
         this.showDetail = false;
         this.addMode = false;
         this.loading = true;
+        this.display = false;
+        this.sorterBy = "id";
+        this.sorterMode = "ASC";
         this.columns = this.loadColumns();
         this.listAll = new Array();
         this.afterInit();
         this.service.refreshData.subscribe(() => {
             if (this.loadDataOnInit)
-                this.findAll();
+                this.findAll(this.sorterMode, this.sorterBy);
         })
         if (this.loadDataOnInit)
-            this.findAll();
+            this.findAll(this.sorterMode, this.sorterBy);
 
         this.appUtils = new AppUtils(this.ngxSpinnerService, this.messageService, this.router);
     }
 
     protected abstract afterInit(): void;
-    protected abstract loadColumns(): any[];
+    protected abstract loadColumns(): ModelColumn[];
 
-    public findAll() {
-        this.service.findAll().subscribe(
+    private findAll(sorterMode: string, sorterBy: string) {
+        this.service.loadSorterData(sorterMode, sorterBy).subscribe(
             data => {
                 this.listAll = data;
                 this.totalRecords = data.length;

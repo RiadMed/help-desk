@@ -11,6 +11,7 @@ import { HardwareService } from "src/app/buisness/services/hardware.service";
 import { Product } from "src/app/buisness/models/Product";
 import { SoftwareService } from "src/app/buisness/services/software.service";
 import { FormGroup } from "@angular/forms";
+import { Observable, of } from "rxjs";
 
 @Component({
     selector: 'add-affectation',
@@ -39,25 +40,14 @@ export class AddAffectationComponent extends AddGenericComponent<Affectation, Af
     protected afterInit(): void {
         if (this.editModel) {
             this.model.date = new Date(this.model.date);
-            this.model.validationDate = new Date(this.model.validationDate);
             this.partener = this.partenerItems.find(x => x.id == this.model.partenerId);
-
-            if (this.model.hardwareId) {
-                this.hasHardware = true;
-                this.hardware = this.hardwareItems.find(hard => hard.id == this.model.hardwareId);
-            }
-            if (this.model.softwareId) {
-                this.software = this.softwareItems.find(soft => soft.id == this.model.softwareId);
-                this.hasSoftware = true;
-            }
-
         } else {
             this.initValues();
         }
     }
 
-    protected loadFormModels(): any[] {
-        return [];
+    protected loadFormModels(): Observable<any[]> {
+        return of([]);
     }
     protected initFormGroup(): FormGroup {
         return null;
@@ -67,18 +57,6 @@ export class AddAffectationComponent extends AddGenericComponent<Affectation, Af
     }
 
     protected beforSave(): void {
-
-        if (this.hasSoftware) {
-            this.model.softwareId = this.software.id;
-            this.model.softwareLabel = this.software.label;
-            this.model.softwareAmount = this.software.quantity - 1;
-        }
-        if (this.hasHardware) {
-            this.model.hardwareId = this.hardware.id;
-            this.model.hardwareLabel = this.hardware.label;
-            this.model.hardwareAmount = this.hardware.amount - 1;
-
-        }
         this.model.partenerId = this.partener.id;
         this.model.partenerLabel = this.partener.label;
         this.model.partenerLastName = this.partener.lastName;
@@ -87,8 +65,8 @@ export class AddAffectationComponent extends AddGenericComponent<Affectation, Af
 
     public saveAffectData() {
         let afect: Affectation = null;
-        if (this.hasHardware)
-            afect = this.listAll.find(x => x.serialNumber == this.model.serialNumber);
+        // if (this.hasHardware)
+        //     afect = this.listAll.find(x => x.serialNumber == this.model.serialNumber);
         if (afect != null) {
             this.appUtils.showErrorMessages("Ce Numéro de série est déja affecté.");
         } else {
@@ -117,7 +95,6 @@ export class AddAffectationComponent extends AddGenericComponent<Affectation, Af
     private initValues() {
         this.model = new Affectation();
         this.model.date = new Date();
-        this.model.validationDate = new Date();
         this.hasSoftware = false;
         this.hasHardware = false;
         this.hardware = new Hardware();

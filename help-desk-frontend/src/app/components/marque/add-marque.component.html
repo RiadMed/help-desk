@@ -1,10 +1,10 @@
 <form [formGroup]="addForm" (ngSubmit)="saveDataForm(addForm.value)">
     <i class="pi pi-chevron-left ui-button-secondary back-btn-style" (click)="cancel()"></i>
-    <span class="card-title-style">Marque info :</span>
+    <span class="card-title-style">{{'MARQUE.VIEW_TITLE' | translate}} :</span>
     <hr />
     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-rtl ui-fluid" style="margin: 10px 10px"
         [dir]="'DISPLAY.RTL' | translate">
-        <app-info-form-generic *ngFor="let item of formsGroups" [model]="item" [form]="addForm">
+        <app-info-form-generic *ngFor="let item of formsGroups | async" [model]="item" [form]="addForm">
         </app-info-form-generic>
     </div>
     <hr />

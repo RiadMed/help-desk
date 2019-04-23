@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import * as PrimeNG from 'primeng/primeng';
 import * as PrimeTable from 'primeng/table';
 import * as PrimeToast from 'primeng/toast';
+import * as PrimeDynamicDialog from 'primeng/dynamicdialog';
 
 @NgModule({
   declarations: [],
@@ -29,7 +30,8 @@ import * as PrimeToast from 'primeng/toast';
     PrimeNG.ChartModule,
     PrimeNG.FileUploadModule,
     PrimeTable.TableModule,
-    PrimeToast.ToastModule
+    PrimeToast.ToastModule,
+    PrimeDynamicDialog.DynamicDialogModule,
   ],
   exports: [
     PrimeNG.PanelModule,
@@ -53,7 +55,8 @@ import * as PrimeToast from 'primeng/toast';
     PrimeNG.ChartModule,
     PrimeNG.FileUploadModule,
     PrimeTable.TableModule,
-    PrimeToast.ToastModule
+    PrimeToast.ToastModule,
+    PrimeDynamicDialog.DynamicDialogModule,
   ]
 })
 export class PrimeNGModule { }

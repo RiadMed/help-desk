@@ -1,31 +1,40 @@
 <div class="ui-g" [formGroup]="addForm" [ngSwitch]="modelForm.controlType">
   <div class="ui-g-4 ui-md-3 ui-lg-3" *ngIf="modelForm.rendred">
-    <label [for]="modelForm.column" translate>{{modelForm.label}}</label>
+    <label [for]="modelForm.field" translate>{{modelForm.label}}</label>
     <span style="color:red" *ngIf="modelForm.required"> *</span> :
   </div>
   <div class="ui-g-8 ui-md-8 ui-lg-8" *ngIf="modelForm.rendred">
 
-    <input *ngSwitchCase="'text'" [type]="modelForm.controlType" [id]="modelForm.column" pInputText autofocus
-      [formControlName]="modelForm.column" class="form-control col-md-11 col-lg-11" [placeholder]="modelForm.column">
+    <input *ngSwitchCase="'text'" [type]="modelForm.controlType" [id]="modelForm.field" pInputText autofocus
+           [formControlName]="modelForm.field" class="form-control col-md-11 col-lg-11"
+           onkeyup="this.value = this.value.toUpperCase();"
+           [placeholder]="modelForm.label | translate">
 
-    <ng-select #api *ngSwitchCase="'select'" [items]="modelForm.options" bindLabel="label" bindValue="id"
-      [formControlName]="modelForm.column" [id]="modelForm.column">
+    <ng-select #api *ngSwitchCase="'select'" [items]="modelForm.options" bindValue="id"
+               [formControlName]="modelForm.field" [id]="modelForm.field">
       <ng-template ng-header-tmp>
-        <!-- <button class="btn btn-sm btn-secondary">Select all</button>
-        <button class="btn btn-sm btn-secondary">Unselect all</button>
-        <hr/> -->
-        <input style="width: 100%; line-height: 24px;border: none;border-bottom: 1px solid #d0d0d0" type="text"
-          (input)="api.filter($event.target.value)" />
+        <input style="width: 95%; line-height: 24px;border: none;border-bottom: 1px solid #d0d0d0" type="text"
+               (input)="api.filter($event.target.value)" placeholder="Search..."/>
+        <i class="fas fa-search show-ref-dialog-style"
+           style="float: right;margin-top: 10px"></i>
+      </ng-template>
+      <ng-template ng-label-tmp let-item="item">
+        {{item.label | uppercase}}
+      </ng-template>
+      <ng-template ng-footer-tmp *ngIf="false">
+        <span (click)="showAddDialog()"><i class="fas fa-plus" style="font-size: 11px !important;"></i> Nouveau</span>
       </ng-template>
     </ng-select>
 
-    <p-calendar *ngSwitchCase="'date'" [id]="modelForm.column" [showIcon]="true" [formControlName]="modelForm.column"
-      dateFormat="dd/mm/yy" [placeholder]="modelForm.column"></p-calendar>
+    <p-calendar *ngSwitchCase="'date'" [id]="modelForm.field" [showIcon]="true" [formControlName]="modelForm.field"
+                [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" dateFormat="dd/mm/yy"
+                [placeholder]="modelForm.label | translate"></p-calendar>
 
-    <input *ngSwitchCase="'number'" [type]="modelForm.controlType" [id]="modelForm.column" pInputText pKeyFilter="num"
-      [formControlName]="modelForm.column" class="form-control col-md-11 col-lg-11" [placeholder]="modelForm.column">
+    <input *ngSwitchCase="'number'" [type]="modelForm.controlType" [id]="modelForm.field" pInputText pKeyFilter="num"
+           [formControlName]="modelForm.field" class="form-control col-md-11 col-lg-11"
+           [placeholder]="modelForm.label | translate">
 
-    <div *ngIf="!addForm.controls[modelForm.column].valid&&addForm.controls[modelForm.column].dirty">
+    <div *ngIf="!addForm.controls[modelForm.field].valid&&addForm.controls[modelForm.field].dirty">
       <p-message severity="error" [text]="modelForm.message" style="width: 90%"></p-message>
     </div>
 

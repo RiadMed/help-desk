@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.expression.ParseException;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,10 +32,27 @@ public class GenericServiceImpl<S extends JpaRepository<O, T>, O extends Parents
 	}
 
 	@Override
+	public List<D> findAll(Sort sort) {
+		return dao.findAll(sort).stream().map(entity -> convertToDto(entity)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<D> findAll(Pageable pageable) {
+		return dao.findAll(pageable).stream().map(entity -> convertToDto(entity)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<D> findAllByExample(D example) {
+		Example<D> ex = Example.of(example);
+		return dao.findAll((Sort) ex).stream().map(entity -> convertToDto(entity))
+				.collect(Collectors.toList());
+	}
+
+	@Override
 	@Transactional
 	public D save(D dto) {
 		O entity = convertToEntity(dto);
-		O newEntity = dao.save(entity);
+		O newEntity = dao.saveAndFlush(entity);
 		return convertToDto(newEntity);
 	}
 
@@ -62,7 +82,7 @@ public class GenericServiceImpl<S extends JpaRepository<O, T>, O extends Parents
 
 	@Override
 	public void delete(D dto) {
-			dao.delete(convertToEntity(dto));
+		dao.delete(convertToEntity(dto));
 	}
 
 	@Override
@@ -72,14 +92,14 @@ public class GenericServiceImpl<S extends JpaRepository<O, T>, O extends Parents
 	}
 
 	@SuppressWarnings("unchecked")
-	private D convertToDto(O entity) {
+	protected D convertToDto(O entity) {
 		D dto = modelMapper.map(entity,
 				(Class<D>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[2]);
 		return dto;
 	}
 
 	@SuppressWarnings({ "unchecked" })
-	private O convertToEntity(D dto) throws ParseException {
+	protected O convertToEntity(D dto) throws ParseException {
 		O entity = modelMapper.map(dto,
 				(Class<O>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1]);
 		return entity;

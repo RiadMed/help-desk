@@ -1,31 +1,51 @@
 <p-dialog header="Nouvelle marque" [(visible)]="showDialog" [modal]="true" [responsive]="true"
   [style]="{width: '450px', minWidth: '200px'}" [minY]="70" [baseZIndex]="10000" (onHide)="onHide($event)">
-  
-  <form [formGroup]="dialogform" (ngSubmit)="saveDataForm(dialogform.value)">
-    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 10px">
-      <div class="ui-g" *ngFor="let item of formsGroups" [ngSwitch]="item.controlType">
-        <div class="ui-g-4 ui-md-3 ui-lg-3">
-          <label for="_label">{{item.label}}</label>
-          <span style="color:red" *ngIf="item.required"> *</span> :
-        </div>
-        <div class="ui-g-8 ui-md-8 ui-lg-8">
-          <input *ngSwitchCase="'text'" type="text" [id]="item.column" [pKeyFilter]="blockSpecial" pInputText autofocus
-            [formControlName]="item.column" class="form-control col-md-11 col-lg-11" placeholder="Libellé.">
-          <ng-select *ngSwitchCase="'select'" [items]="item.options" bindLabel="label" bindValue="id"
-            [formControlName]="item.column" [id]="item.column">
-          </ng-select>
-          <div *ngIf="!dialogform.controls[item.column].valid&&dialogform.controls[item.column].dirty">
-            <p-message severity="error" text="{{item.message}}" style="width: 90%"></p-message>
-          </div>
 
+  <form [formGroup]="dialogform" (ngSubmit)="saveDataDlgForm()">
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 10px"
+      [dir]="'DISPLAY.RTL' | translate">
+     
+
+      <div class="ui-g" *ngFor="let modelForm of formsModels" [ngSwitch]="modelForm.controlType">
+        <div class="ui-g-4 ui-md-3 ui-lg-3" *ngIf="modelForm.rendred">
+          <label [for]="modelForm.field" translate>{{modelForm.label}}</label>
+          <span style="color:red" *ngIf="modelForm.required"> *</span> :
+        </div>
+        <div class="ui-g-8 ui-md-8 ui-lg-8" *ngIf="modelForm.rendred">
+      
+          <input *ngSwitchCase="'text'" [type]="modelForm.controlType" [id]="modelForm.field" pInputText autofocus
+            [formControlName]="modelForm.field" class="form-control col-md-11 col-lg-11"
+            [placeholder]="modelForm.label | translate">
+      
+          <ng-select #api *ngSwitchCase="'select'" [items]="modelForm.options" bindLabel="label" bindValue="id"
+            [formControlName]="modelForm.field" [id]="modelForm.field">
+            <ng-template ng-header-tmp>
+              <input style="width: 95%; line-height: 24px;border: none;border-bottom: 1px solid #d0d0d0" type="text"
+                (input)="api.filter($event.target.value)" placeholder="Search..." />
+              <i class="fas fa-plus-square show-ref-dialog-style" (click)="showAddDialog()"
+                style="float: right;margin-top: 10px"></i>
+            </ng-template>
+          </ng-select>
+      
+          <p-calendar *ngSwitchCase="'date'" [id]="modelForm.field" [showIcon]="true" [formControlName]="modelForm.field"
+            [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" dateFormat="dd/mm/yy"
+            [placeholder]="modelForm.label | translate"></p-calendar>
+      
+          <input *ngSwitchCase="'number'" [type]="modelForm.controlType" [id]="modelForm.field" pInputText pKeyFilter="num"
+            [formControlName]="modelForm.field" class="form-control col-md-11 col-lg-11"
+            [placeholder]="modelForm.label | translate">
+      
+          <div *ngIf="!dialogform.controls[modelForm.field].valid&&dialogform.controls[modelForm.field].dirty">
+            <p-message severity="error" [text]="modelForm.message" style="width: 90%"></p-message>
+          </div>
+      
         </div>
       </div>
+
     </div>
-
     <hr />
-
     <p-footer>
-      <button type="submit" pButton icon="pi pi-check" [disabled]="!dialogform.valid" label="Valider"></button>
+      <button type="submit" pButton icon="pi pi-check" label="Valider" [disabled]="!dialogform.valid"></button>
       <button type="button" pButton icon="pi pi-times" (click)="hideDialog()" label="Fermer"></button>
     </p-footer>
   </form>

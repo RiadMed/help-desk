@@ -5,6 +5,7 @@ import { MessageService } from "primeng/components/common/api";
 import { NgxSpinnerService } from "ngx-spinner";
 import { AddGenericComponent } from "../add-generic-component";
 import { FormGroup } from "@angular/forms";
+import { Observable, of } from "rxjs";
 
 @Component({
     selector: 'add-menu',
@@ -21,8 +22,8 @@ export class AddMenuComponent extends AddGenericComponent<Menu, MenuService> {
     protected afterInit(): void {
     }
 
-    protected loadFormModels(): any[] {
-        return [];
+    protected loadFormModels(): Observable<any[]> {
+        return of([]);
     }
     protected initFormGroup(): FormGroup {
         return null;

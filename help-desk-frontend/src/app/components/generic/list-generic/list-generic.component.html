@@ -9,9 +9,9 @@
       </button>
     </div>
     <div class="ui-inputgroup filter-ui-table">
-      <input type="text" pInputText placeholder="Search..." size="50" [pTooltip]="'COMMUN.TOOLTIP_SEARCH' | translate"
-        tooltipEvent="focus" tooltipPosition="left" (input)="dt.filterGlobal($event.target.value, 'contains')"
-        class="form-control input-search">
+      <input type="text" pInputText [(ngModel)]="query" placeholder="Search..." size="50"
+        [pTooltip]="'COMMUN.TOOLTIP_SEARCH' | translate" tooltipEvent="focus" tooltipPosition="left"
+        (input)="dt.filterGlobal(query, 'contains')" (keyup)="onChangeFilter(dt)" class="form-control input-search">
       <span class="ui-inputgroup-addon input-search-logo"><i class="pi pi-search"></i></span>
     </div>
   </ng-template>
@@ -22,9 +22,8 @@
   </ng-template>
   <ng-template pTemplate="header" let-columns>
     <tr>
-      <th class="id-column-header-style">N°
-      </th>
-      <th *ngFor="let col of columnModel" [pSortableColumn]="col.field" [style.width]="col.width" translate>
+      <th *ngFor="let col of columnModel" [pSortableColumn]="col.field" [style.width]="col.width" translate
+        [class]="col.field ==='id' ? 'id-column-header-style' : ''">
         {{col.header | translate}}
         <p-sortIcon [field]="col.field"></p-sortIcon>
       </th>
@@ -33,13 +32,12 @@
   </ng-template>
   <ng-template pTemplate="body" let-rowData let-columns="columnModel">
     <tr [pSelectableRow]="rowData">
-      <td class="id-column-value-style">
-        {{rowData.id}}
-      </td>
-      <td *ngFor="let col of columnModel" [ngSwitch]="col.pipe">
-        <div *ngSwitchCase="'Date'"> {{rowData[col.field] | date:dateFormat}}</div>
-        <div *ngSwitchCase="'Currency'"> {{rowData[col.field] | currency}}</div>
-        <div *ngSwitchCase="'uppercase'"> {{rowData[col.field] | uppercase }}</div>
+      <td *ngFor="let col of columnModel" [ngSwitch]="col.type"
+        [class]="col.field ==='id' ? 'id-column-value-style' : ''">
+        <div *ngSwitchCase="'date'"> {{rowData[col.field] | date:dateFormat}}</div>
+        <div *ngSwitchCase="'money'"> {{rowData[col.field] | currency}}</div>
+        <div *ngSwitchCase="'text'"> {{rowData[col.field] | uppercase }}</div>
+        <div *ngSwitchCase="'icon'"> <i [class]="rowData[col.field]" style="color: #666"></i></div>
         <div *ngSwitchDefault> {{rowData[col.field]}}</div>
       </td>
       <td class="action-column-value-style">

@@ -30,20 +30,19 @@ export class HomeComponent implements OnInit {
 
   public getActivatedSoft(softId: number): number {
     if (this.listAll)
-      return this.listAll.filter(x => x.softwareId != null && x.softwareId == softId && x.active).length;
+      return 0;
     return 0;
   }
 
   public getInActivatedSoft(softId: number): number {
     if (this.listAll)
-      return this.listAll.filter(x => x.softwareId != null && x.softwareId == softId && !x.active).length;
+      return 0;
     return 0;
   }
 
   public getTotalSoft(softId: number): number {
     if (this.listAll)
-    
-      return this.listAll.filter(x => x.softwareId != null && x.softwareId == softId).length;
+      return 0;
     return 0;
   }
 

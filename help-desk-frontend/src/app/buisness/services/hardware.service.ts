@@ -18,4 +18,10 @@ export class HardwareService extends GenericService<Product>{
     super(http, API_URLS.PRODUCT_API);
   }
 
+  public findByType(soft: number): Observable<Product[]> {
+    return this.getHttpClient().get<Product[]>(
+      API_URLS.PRODUCT_API + '/type/' + soft,
+      { headers: new HttpHeaders({ 'Authorization': localStorage.getItem(PathName.TOKEN) }) })
+  }
+
 }

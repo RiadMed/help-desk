@@ -1,13 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Event, NavigationEnd, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
-import { Menu } from 'src/app/buisness/models/menu';
-import { HeaderService } from 'src/app/buisness/services/header.service';
-import { AuthenticationService } from 'src/app/security/service/authentication.service';
-import { ApplicationService } from 'src/app/buisness/services/application.service';
-import { AppUtils } from 'src/app/helpers/app-utils';
-import { NgxSpinnerService } from 'ngx-spinner';
+import {Component, Input, OnInit} from '@angular/core';
+import {Event, NavigationEnd, Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {Menu} from 'src/app/buisness/models/menu';
+import {HeaderService} from 'src/app/buisness/services/header.service';
+import {AuthenticationService} from 'src/app/security/service/authentication.service';
+import {ApplicationService} from 'src/app/buisness/services/application.service';
+import {AppUtils} from 'src/app/helpers/app-utils';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-header',

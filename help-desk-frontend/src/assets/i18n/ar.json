@@ -14,6 +14,7 @@
         "BTN_CANCEL": " إلغاء ",
         "BTN_DELETE": " حذف ",
         "BTN_MODIFIER": " تحديث ",
+        "TITLE_MODIFIER": " تحديث ",
         "TOOLTIP_SEARCH": ".بحث عام",
         "TOOLTIP_SHOW": ".إظهار التفاصيل",
         "TOOLTIP_DELETE": "احذف الخط",
@@ -34,11 +35,32 @@
     "MARQUE": {
         "TAB_TITLE": " العلامة ",
         "TITLE": " قائمة العلمات ",
+        "VIEW_TITLE": " تفاصيل العلامة ",
         "FORM_LABEL": " الإسم ",
         "FORM_FAMILY_MARQUE": " العائلة ",
         "COLUMN_LABEL": " الإسم ",
         "COLUMN_FAMILY_MARQUE": " العائلة "
     },
+    "SOFTWARE": {
+        "TAB_TITLE": " تطبيقات ",
+        "TITLE": " قائمة التطبيقات ",
+        "VIEW_TITLE": " تفاصيل التطبيق ",
+        "FORM_LABEL": " الإسم ",
+        "FORM_QUANTITY": " الكمية ",
+        "FORM_DATE": " تاريخ ",
+        "FORM_ICON": " رمز ",
+        "FORM_MARQUE": " العلامة "
+      },
+      "HARDWARE": {
+        "TAB_TITLE": " المعدات ",
+        "TITLE": " قائمة المعدات ",
+        "VIEW_TITLE": " تفاصيل المعدات ",
+        "FORM_LABEL": " الإسم ",
+        "FORM_QUANTITY": " الكمية ",
+        "FORM_DATE": " تاريخ ",
+        "FORM_ICON": " رمز ",
+        "FORM_MARQUE": " العلامة "
+      },
     "CONFIG": {
         "TITLE_PAGE_KEY": " لوحة التحكم ",
         "LABEL_KEY": " إسم المشروع ",

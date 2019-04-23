@@ -2,77 +2,13 @@
 
   <p-card *ngIf="!showDetail">
     <span style="font-size: 1rem;color: #555;margin-left: 5px;font-weight: 500;padding: 0">
-      Liste des materiels :</span>
-    <hr />
-    <p-table #dt [columns]="columns" [value]="listAll" [paginator]="true" [rows]="10" [totalRecords]="totalRecords"
-      [rowsPerPageOptions]="[10,20,50,100]">
+      <i class="fas fa-th back-btn-style"></i>
+      <span class="card-title-style"> {{ 'HARDWARE.TITLE' | translate }} :</span></span>
 
-      <ng-template pTemplate="caption">
-        <div class="ui-helper-clearfix">
-          <button pButton type="button" label="Nouveau" icon="pi pi-plus" (click)="addEntity()" class="ui-button-raised"
-            style="float: left;margin-top: -3px;">
-          </button>
-        </div>
-        <div class="ui-inputgroup filter-ui-table">
-          <input type="text" pInputText placeholder="Search..." size="50" pTooltip="Recherche générique."
-            tooltipEvent="focus" tooltipPosition="left" (input)="dt.filterGlobal($event.target.value, 'contains')"
-            class="form-control input-search">
-          <span class="ui-inputgroup-addon input-search-logo"><i class="pi pi-search"></i></span>
-        </div>
-      </ng-template>
-      <ng-template pTemplate="colgroup" let-columns>
-        <colgroup>
-          <col *ngFor="let col of columns" [style.width]="col.width">
-        </colgroup>
-      </ng-template>
-      <ng-template pTemplate="header" let-columns>
-        <tr>
-          <th class="id-column-header-style">N°
-          </th>
-          <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.width">
-            {{col.header}}
-            <p-sortIcon [field]="col.field"></p-sortIcon>
-          </th>
-          <th style="width:9em"></th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-rowData let-columns="columns">
-        <tr [pSelectableRow]="rowData">
-          <td class="id-column-value-style">
-            {{rowData.id}}
-          </td>
-          <td *ngFor="let col of columns" [ngSwitch]="col.pipe">
-            <div *ngSwitchCase="'Date'"> {{rowData[col.field] | date:dateFormat}}</div>
-            <div *ngSwitchCase="'Currency'"> {{rowData[col.field] | currency}}</div>
-            <div *ngSwitchCase="'uppercase'"> {{rowData[col.field] | uppercase }}</div>
-            <div *ngSwitchDefault> {{rowData[col.field]}}</div>
-          </td>
-          <td class="action-column-value-style">
-
-            <button pButton type="button" icon="pi pi-external-link" class="ui-button-secondary show-btn-style"
-              (click)="showModelDetails(rowData)" pTooltip="Voir le détail" tooltipPosition="bottom"></button>
-            <button pButton type="button" icon="pi pi-trash" class="ui-button-secondary delete-btn-style"
-              (click)="confirm(rowData)" pTooltip="Suprimer la ligne" tooltipPosition="bottom"></button>
-          </td>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="emptymessage" let-columns>
-        <tr>
-          <td [attr.colspan]="columns.length" [attr.colspan]="columns.length + 2">
-            <span style="color: #777;font-size: 10px"> aucune données enregitrer..</span>
-          </td>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="summary" let-rowData>
-        <div style="text-align:left">
-          <button type="button" pButton icon="fa fa-file-excel" (click)="exportAsXLSX()" label="Excel"
-            class="ui-button-secondary excel-btn-style"></button>
-          <button type="button" pButton icon="fa fa-file-pdf" label="Pdf" disabled="true"
-            class="ui-button-secondary pdf-btn-style"></button>
-          <i class="pi pi-ellipsis-v" style="color: #999"></i>
-        </div>
-      </ng-template>
-    </p-table>
+    <app-list-generic [data]="listAll" [columnModel]="columns" [title]="titlePage" (clickAdd)="addEntity()"
+      (clickShow)="showModelDetails($event)" (clickDelete)="confirm($event)" (clickExportExcel)="exportAsXLSX()"
+      [display]="display">
+    </app-list-generic>
   </p-card>
 
   <p-card *ngIf="showDetail">

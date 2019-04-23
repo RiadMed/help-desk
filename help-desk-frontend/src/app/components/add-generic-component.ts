@@ -1,10 +1,11 @@
 import { EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { FormGroup, NgForm } from "@angular/forms";
 import { NgxSpinnerService } from "ngx-spinner";
 import { MessageService } from "primeng/components/common/api";
+import { Observable } from "rxjs";
 import { ParentModel } from "../buisness/models/parent-model";
 import { GenericService } from "../buisness/services/generic-service";
 import { AppUtils } from "../helpers/app-utils";
-import { FormGroup, NgForm } from "@angular/forms";
 
 export abstract class AddGenericComponent<T extends ParentModel, S extends GenericService<T>> implements OnInit {
 
@@ -19,11 +20,11 @@ export abstract class AddGenericComponent<T extends ParentModel, S extends Gener
 
     protected appUtils: AppUtils;
     protected addForm: FormGroup;
-    protected formsGroups: any[];
+    protected formsGroups: Observable<any[]>;
 
     blockSpecial: RegExp = /^[^<>*!]+$/;
 
-    constructor(private service: S
+  protected constructor(private service: S
         , private messageService: MessageService
         , private ngxSpinnerService: NgxSpinnerService) { }
 
@@ -40,7 +41,7 @@ export abstract class AddGenericComponent<T extends ParentModel, S extends Gener
     }
 
     protected abstract afterInit(): void;
-    protected abstract loadFormModels(): any[];
+    protected abstract loadFormModels(): Observable<any[]>;
     protected abstract initFormGroup(): FormGroup;
     protected abstract loadFormGroup(): FormGroup;
     protected abstract afterAdd(): void;

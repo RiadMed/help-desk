@@ -5,6 +5,7 @@ import { Profession } from "src/app/buisness/models/profession";
 import { ProfessionService } from "src/app/buisness/services/profession.service";
 import { AddGenericComponent } from "../add-generic-component";
 import { FormGroup } from "@angular/forms";
+import { Observable, of } from "rxjs";
 
 @Component({
     selector: 'add-profession',
@@ -18,9 +19,10 @@ export class AddProfessionComponent extends AddGenericComponent<Profession, Prof
         super(professionService, messageService, ngxSpinnerService);
     }
 
-    protected loadFormModels(): any[] {
-        return [];
+    protected loadFormModels(): Observable<any[]> {
+        return of([]);
     }
+    
     protected initFormGroup(): FormGroup {
         return null;
     }

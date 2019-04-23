@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
-import { ParentModel } from 'src/app/buisness/models/parent-model';
-import { GenericService } from 'src/app/buisness/services/generic-service';
-import { AppUtils } from 'src/app/helpers/app-utils';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { MessageService } from 'primeng/primeng';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {ParentModel} from 'src/app/buisness/models/parent-model';
+import {GenericService} from 'src/app/buisness/services/generic-service';
+import {AppUtils} from 'src/app/helpers/app-utils';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {MessageService} from 'primeng/primeng';
+import {ModelForm} from 'src/app/buisness/models/model-form';
 
 @Component({
   selector: 'app-add-dialog',
@@ -14,46 +15,39 @@ export class AddDialogComponent<T extends ParentModel, S extends GenericService<
 
   @Input() dialogform: FormGroup;
   existLine: boolean;
-
   @Input('datasource') listAll: Array<T>;
-  @Input('appModel') model: T;
+
   @Input() showDialog: boolean;
   @Input() service: S;
-  @Input() formsGroups: any[];
+  @Input() formsModels: ModelForm<T>[];
 
   @Output() pushDataEvent = new EventEmitter();
   @Output() pushModelEvent = new EventEmitter();
   @Output() hideDialogEvent = new EventEmitter();
+  @Output() pushObjectEvent = new EventEmitter();
 
   protected appUtils: AppUtils;
 
-  constructor(private formBuilder: FormBuilder
-    , private ngxSpinnerService: NgxSpinnerService
+  constructor(private ngxSpinnerService: NgxSpinnerService
     , private messageService: MessageService) { }
 
   ngOnInit() {
     this.appUtils = new AppUtils(this.ngxSpinnerService, this.messageService, null);
   }
 
-  public saveDataForm(dlgForm: NgForm) {
-    this.model.label = this.dialogform.get('label').value;
+  public saveDataDlgForm() {
     let _datasource = [...this.listAll];
-    let _model = _datasource.find(x => x.label.toLowerCase() == this.model.label.toLowerCase());
-    this.existLine = _model != null;
-    if (!this.existLine) {
-      this.service.saveForm(dlgForm, null, false).subscribe(
-        (data: T) => {
-          this.model = data;
-          if (this.listAll) {
-            _datasource.push(this.model);
-            this.listAll = _datasource;
-            this.pushDataEvent.emit(this.listAll)
-          }
-          this.pushModelEvent.emit(this.model);
-          this.hideDialogEvent.emit(false);
-          this.appUtils.showInfoMessages('Operation effectuée avec succès');
-        });
-    }
+    this.service.saveForm(this.dialogform.value, null, false).subscribe(
+      (data: T) => {
+        let model = data;
+        _datasource.push(model);
+        this.pushObjectEvent.emit(model);
+        this.listAll = _datasource;
+        this.pushDataEvent.emit(this.listAll);
+        this.appUtils.showInfoMessages('Operation effectuée avec succès');
+        this.hideDialog();
+      }
+    );
   }
 
   public hideDialog() {
